@@ -341,13 +341,13 @@ public class PlayerCtrl : MonoBehaviour
         switch (playerState)
         {
             case PlayerState.Idle:
-                animationPlayer.Play("Walking@loop");
+                animationPlayer.CrossFade("Standing@loop", 0.2f);
                 break;
             case PlayerState.Walk:
-                animationPlayer.Play("");
+                animationPlayer.CrossFade("Walking@loop", 0.2f);
                 break;
             case PlayerState.Run:
-                animationPlayer.Play("");
+                animationPlayer.CrossFade("Running@loop", 0.2f);
                 break;
             case PlayerState.Atk:
                 break;
