@@ -96,7 +96,7 @@ public class PlayerCtrl : MonoBehaviour
         BodyDirectionChange();
 
         //state에 따른 애니메이션 재생
-        AnimationClipCtrl();
+        //AnimationClipCtrl();
 
         //조건에 맞춰서 플레이어 상태 변경
         CheckAnimationState();
@@ -341,13 +341,13 @@ public class PlayerCtrl : MonoBehaviour
         switch (playerState)
         {
             case PlayerState.Idle:
-                animationPlayer.CrossFade("Standing@loop", 0.2f);
+                animationPlayer.Play("Standing@loop");
                 break;
             case PlayerState.Walk:
-                animationPlayer.CrossFade("Walking@loop", 0.2f);
+                animationPlayer.Play("Walking@loop");
                 break;
             case PlayerState.Run:
-                animationPlayer.CrossFade("Running@loop", 0.2f);
+                animationPlayer.Play("Running@loop");
                 break;
             case PlayerState.Atk:
                 break;
