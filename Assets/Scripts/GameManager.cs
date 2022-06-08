@@ -26,5 +26,8 @@ public class GameManager : SingleTon_01<GameManager>
     public void AddScore(int addScore)
     {
         this.Score += addScore;
+        UpdateUI();
     }
+
+    
 }

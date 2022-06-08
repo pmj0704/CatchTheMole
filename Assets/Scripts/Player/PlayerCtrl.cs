@@ -91,6 +91,11 @@ public class PlayerCtrl : MonoBehaviour
         animationPlayer = GetComponent<Animator>();
         //상태 값을 기본값
         playerState = PlayerState.Idle;
+
+        AtkClip1.wrapMode = WrapMode.Once;
+        AtkClip2.wrapMode = WrapMode.Once;
+        AtkClip3.wrapMode = WrapMode.Once;
+        AtkClip4.wrapMode = WrapMode.Once;
     }
 
     void Update()
@@ -208,28 +213,36 @@ public class PlayerCtrl : MonoBehaviour
     /// <summary>
     /// 화면에 글씨를 띄어주는 함수
     /// </summary>
+    //private void OnGUI()
+    //{
+    //    if (characterCtrl != null && characterCtrl.velocity != Vector3.zero)
+    //    {
+    //        var labelStyle = new GUIStyle();
+    //        labelStyle.fontSize = 15;
+    //        labelStyle.normal.textColor = Color.black;
+
+    //        //현재 속도 
+    //        float _getVelocity = GetVelocitySpd();
+    //        GUILayout.Label("현재 속도 : " + _getVelocity.ToString(), labelStyle);
+
+    //        //현재 캐릭터 방향
+    //        GUILayout.Label("현재 방향 : " + characterCtrl.velocity.ToString(), labelStyle);
+
+    //        //현재 캐릭터 속도
+    //        GUILayout.Label("현재 캐릭터 속도 : " + CurrentVelocitySpd.magnitude.ToString(), labelStyle);
+
+    //        GUILayout.Label("충돌 : " + collisionFlags.ToString(), labelStyle);
+    //    }
+    //}
     private void OnGUI()
     {
-        if (characterCtrl != null && characterCtrl.velocity != Vector3.zero)
-        {
-            var labelStyle = new GUIStyle();
-            labelStyle.fontSize = 15;
-            labelStyle.normal.textColor = Color.black;
+        var labelStyle = new GUIStyle();
+        labelStyle.fontSize = 15;
+        labelStyle.normal.textColor = Color.black;
 
-            //현재 속도 
-            float _getVelocity = GetVelocitySpd();
-            GUILayout.Label("현재 속도 : " + _getVelocity.ToString(), labelStyle);
-
-            //현재 캐릭터 방향
-            GUILayout.Label("현재 방향 : " + characterCtrl.velocity.ToString(), labelStyle);
-
-            //현재 캐릭터 속도
-            GUILayout.Label("현재 캐릭터 속도 : " + CurrentVelocitySpd.magnitude.ToString(), labelStyle);
-
-            GUILayout.Label("충돌 : " + collisionFlags.ToString(), labelStyle);
-        }
+        float _getVelocity = GetVelocitySpd();
+        GUILayout.Label("현재 속도 : " + _getVelocity.ToString(), labelStyle);
     }
-
     /// <summary>
     /// 공격 버튼
     /// </summary>
@@ -238,49 +251,49 @@ public class PlayerCtrl : MonoBehaviour
         //마우스 클릭 하였는가?
         if (Input.GetMouseButtonDown(0) == true)
         {
-            ////플레이어 공격 상태
-            //if (playerState != PlayerState.Atk)
-            //{
-            //    //플레이어가 공격 상태가 아니면 공격 상태로 변경
-            //    playerState = PlayerState.Atk;
+            //플레이어 공격 상태
+            if (playerState != PlayerState.Atk)
+            {
+                //플레이어가 공격 상태가 아니면 공격 상태로 변경
+                playerState = PlayerState.Atk;
 
-            //    //공격상태 초기화
-            //    playerAttackState = PlayerAttackState.atkStep_1;
-            //}
-            //else
-            //{
-            //    //플레이어 상태가 공격상태 
-            //    //공격 상태에 따른 분류
-            //    switch (playerAttackState)
-            //    {
-            //        case PlayerAttackState.atkStep_1:
-            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip1.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-            //            {
-            //                flagNextAttack = true;
-            //            }
-            //            break;
-            //        case PlayerAttackState.atkStep_2:
-            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip2.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-            //            {
-            //                flagNextAttack = true;
-            //            }
-            //            break;
-            //        case PlayerAttackState.atkStep_3:
-            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip3.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-            //            {
-            //                flagNextAttack = true;
-            //            }
-            //            break;
-            //        case PlayerAttackState.atkStep_4:
-            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip4.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-            //            {
-            //                flagNextAttack = true;
-            //            }
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            // }
+                //공격상태 초기화
+                playerAttackState = PlayerAttackState.atkStep_1;
+            }
+            else
+            {
+                //플레이어 상태가 공격상태 
+                //공격 상태에 따른 분류
+                switch (playerAttackState)
+                {
+                    case PlayerAttackState.atkStep_1:
+                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip1.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+                        {
+                            flagNextAttack = true;
+                        }
+                        break;
+                    case PlayerAttackState.atkStep_2:
+                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip2.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+                        {
+                            flagNextAttack = true;
+                        }
+                        break;
+                    case PlayerAttackState.atkStep_3:
+                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip3.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+                        {
+                            flagNextAttack = true;
+                        }
+                        break;
+                    case PlayerAttackState.atkStep_4:
+                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip4.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+                        {
+                            flagNextAttack = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         //마우스 우클릭
@@ -298,7 +311,7 @@ public class PlayerCtrl : MonoBehaviour
     /// <summary>
     /// CallBack 공격 애니메이션 재생이 끝나면 호출 되는 애니메이션 이벤트 함수
     /// </summary>
-    void OnPlayerAttackFinshed()
+    public void OnPlayerAttackFinshed()
     {
         //만약에 flagNextAttack이 true면 
         if (flagNextAttack == true)
@@ -306,9 +319,6 @@ public class PlayerCtrl : MonoBehaviour
             //flag 초기화
             flagNextAttack = false;
 
-
-
-            Debug.Log("a");
             //현재 공격 애니메이션 상태에 따른 다음 애니메이션 상태값을 넣기
             switch (playerAttackState)
             {
@@ -439,7 +449,6 @@ public class PlayerCtrl : MonoBehaviour
     /// </summary>
     void AtkAnimationCtrl()
     {
-
         //만약 공격 상태가?
         switch (playerAttackState)
         {
