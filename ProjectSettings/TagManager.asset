@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Hammer
+  - Bottom
   layers:
   - Default
   - TransparentFX

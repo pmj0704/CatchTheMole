@@ -63,8 +63,6 @@ public class PlayerCtrl : MonoBehaviour
     public bool flagNextAttack = false;
 
     [Header("전투 관련")]
-    //공격 할 때만 켜지게
-    public TrailRenderer AtkTrailRenderer = null;
 
     //무기에 있는 콜라이더 캐싱
     public CapsuleCollider AtkCapsuleCollider = null;
@@ -361,6 +359,7 @@ public class PlayerCtrl : MonoBehaviour
                 AnimationClipPlay(RunClip);
                 break;
             case PlayerState.Atk:
+
                 break;
             case PlayerState.Skill:
                 animationPlayer.Play("");
@@ -377,12 +376,14 @@ public class PlayerCtrl : MonoBehaviour
         switch (playerState)
         {
             case PlayerState.Idle:
+                AtkCapsuleCollider.enabled = false;
                 if (nowSdp > 0.0f)
                 {
                     playerState = PlayerState.Walk;
                 }
                 break;
             case PlayerState.Walk:
+                AtkCapsuleCollider.enabled = false;
                 if (nowSdp > 2.0f)
                 {
                     playerState = PlayerState.Run;
@@ -393,6 +394,7 @@ public class PlayerCtrl : MonoBehaviour
                 }
                 break;
             case PlayerState.Run:
+                AtkCapsuleCollider.enabled = false;
                 if (nowSdp < 2.0f)
                 {
                     playerState = PlayerState.Walk;
@@ -404,6 +406,7 @@ public class PlayerCtrl : MonoBehaviour
                 }
                 break;
             case PlayerState.Atk:
+                AtkCapsuleCollider.enabled = true;
                 stopPlayer = true;
                 AtkAnimationCtrl();
                 break;

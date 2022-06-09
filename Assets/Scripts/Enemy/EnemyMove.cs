@@ -34,4 +34,5 @@ public class EnemyMove : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
 }
