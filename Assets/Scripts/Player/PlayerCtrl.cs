@@ -79,6 +79,12 @@ public class PlayerCtrl : MonoBehaviour
     public AnimationClip AtkClip3 = null;
     public AnimationClip AtkClip4 = null;
 
+    [Header("Ray")]
+    public Transform rayStart;
+    public int rayDis = 5;
+
+    [Header("문 상호 작용")]
+    public GameObject[] doorTxt;
 
     void Start()
     {
@@ -115,6 +121,9 @@ public class PlayerCtrl : MonoBehaviour
 
         //공격 여부 확인
         InputAttackCtrl();
+
+        //앞 물체 확인
+        CheckFront();
     }
 
     /// <summary>
@@ -330,6 +339,34 @@ public class PlayerCtrl : MonoBehaviour
         else
         {
             verticalSpd -= gravity * Time.deltaTime;
+        }
+    }
+
+    /// <summary>
+    /// 앞에 어떤 물체가 있는 확인하는 함수
+    /// </summary>
+    void CheckFront()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(rayStart.position, transform.forward);
+
+        if(Physics.Raycast(ray, out hit, rayDis))
+        {
+            if (hit.collider.CompareTag("Door"))
+            {
+                doorTxt[0].SetActive(true);
+                doorTxt[1].SetActive(true);
+
+                if(Input.GetKeyDown(KeyCode.F))
+                {
+                    hit.collider.gameObject.GetComponent<Door>().Interact();
+                }
+            }
+            else
+            {
+                doorTxt[0].SetActive(false);
+                doorTxt[1].SetActive(false);
+            }
         }
     }
 

@@ -5,12 +5,16 @@ using DG.Tweening;
 
 public class EnemyMove : MonoBehaviour
 {
-
     private void OnEnable()
     {
+        //두더지가 활성화 되면 이동 코루틴 활성화
         StartCoroutine(Move());
     }
 
+    /// <summary>
+    /// 이동 애니메이션 코루틴
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Move()
     {
         //코루틴을 사용하여 반복 이동
@@ -24,11 +28,16 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 충돌 할 때
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
+        //충돌체가 망치면?
         if(collision.gameObject.CompareTag("Hammer"))
         {
-            Debug.Log("아!");
+            //점수를 추가하고 오브젝트를 끈다. 재생성을 위채 SendMsg
             SendMessageUpwards("SummonEnemy");
             GameManager.Instance.AddScore(100);
             gameObject.SetActive(false);
