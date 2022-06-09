@@ -209,40 +209,7 @@ public class PlayerCtrl : MonoBehaviour
 
         }
     }
-
-    /// <summary>
-    /// 화면에 글씨를 띄어주는 함수
-    /// </summary>
-    //private void OnGUI()
-    //{
-    //    if (characterCtrl != null && characterCtrl.velocity != Vector3.zero)
-    //    {
-    //        var labelStyle = new GUIStyle();
-    //        labelStyle.fontSize = 15;
-    //        labelStyle.normal.textColor = Color.black;
-
-    //        //현재 속도 
-    //        float _getVelocity = GetVelocitySpd();
-    //        GUILayout.Label("현재 속도 : " + _getVelocity.ToString(), labelStyle);
-
-    //        //현재 캐릭터 방향
-    //        GUILayout.Label("현재 방향 : " + characterCtrl.velocity.ToString(), labelStyle);
-
-    //        //현재 캐릭터 속도
-    //        GUILayout.Label("현재 캐릭터 속도 : " + CurrentVelocitySpd.magnitude.ToString(), labelStyle);
-
-    //        GUILayout.Label("충돌 : " + collisionFlags.ToString(), labelStyle);
-    //    }
-    //}
-    private void OnGUI()
-    {
-        var labelStyle = new GUIStyle();
-        labelStyle.fontSize = 15;
-        labelStyle.normal.textColor = Color.black;
-
-        float _getVelocity = GetVelocitySpd();
-        GUILayout.Label("현재 속도 : " + _getVelocity.ToString(), labelStyle);
-    }
+    
     /// <summary>
     /// 공격 버튼
     /// </summary>
