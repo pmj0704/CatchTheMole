@@ -13,7 +13,7 @@ public class Door : MonoBehaviour, InteractiveObj
         DOTween.Init(false, false, LogBehaviour.Default).SetCapacity(100, 20);
     }
 
-    public void Interact()
+    public void Interact(bool interact)
     {
         if(on)
         {

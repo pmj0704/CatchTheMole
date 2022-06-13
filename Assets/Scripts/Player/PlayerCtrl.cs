@@ -359,13 +359,28 @@ public class PlayerCtrl : MonoBehaviour
 
                 if(Input.GetKeyDown(KeyCode.F))
                 {
-                    hit.collider.gameObject.GetComponent<Door>().Interact();
+                    hit.collider.gameObject.GetComponent<Door>().Interact(true);
                 }
             }
             else
             {
                 doorTxt[0].SetActive(false);
                 doorTxt[1].SetActive(false);
+            }
+
+            if (hit.collider.CompareTag("Jack"))
+            {
+                hit.collider.gameObject.GetComponent<Jack>().Interact(true);
+
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    GameManager.Instance.OpenStore();
+                }
+            }
+            else
+            {
+                if(hit.collider.gameObject.GetComponent<Jack>() != null)
+                hit.collider.gameObject.GetComponent<Jack>().Interact(false);
             }
         }
     }
@@ -475,4 +490,5 @@ public class PlayerCtrl : MonoBehaviour
                 break;
         }
     }
+
 }

@@ -8,6 +8,7 @@ TagManager:
   - Hammer
   - Bottom
   - Door
+  - Jack
   layers:
   - Default
   - TransparentFX

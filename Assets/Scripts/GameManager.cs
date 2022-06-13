@@ -11,7 +11,7 @@ public class GameManager : SingleTon_01<GameManager>
     [Header("적 관련")]
     public GameObject enemyMole;
     public Transform enemyHolder;
-    public int enemyCount = 1;
+    int enemyCount = 0;
 
     void Start()
     {
@@ -50,6 +50,7 @@ public class GameManager : SingleTon_01<GameManager>
     {
         float enemyX = 0;
         float enemyZ = 0;
+        enemyCount = Random.Range(15, 25);
 
         for (int i = 0; i < enemyCount; i++)
         {
@@ -59,5 +60,22 @@ public class GameManager : SingleTon_01<GameManager>
             Vector3 newPos = new Vector3(enemyX, 1000f, enemyZ);
             Instantiate(enemyMole, enemyHolder).transform.position = newPos;
         }
+    }
+
+    /// <summary>
+    /// 상점 UI를 활성화하는 함수
+    /// </summary>
+    public void OpenStore()
+    {
+        Debug.Log("상점 오픈");
+    }
+
+
+    private void OnGUI()
+    {
+        var labelStyle = new GUIStyle();
+        labelStyle.fontSize = 15;
+        labelStyle.normal.textColor = Color.white;
+        GUI.Label(new Rect(250, 10, 100, 20), "필드에 활성화 된 두더지 수: " + FindObjectsOfType<EnemyMove>().Length, labelStyle);
     }
 }
