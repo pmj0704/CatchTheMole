@@ -13,6 +13,13 @@ public class GameManager : SingleTon_01<GameManager>
     public Transform enemyHolder;
     int enemyCount = 0;
 
+
+    [Header("UI 관련")]
+    public GameObject chatUI;
+
+    [HideInInspector]
+    public bool isUI = false;
+
     void Start()
     {
         UpdateUI();
@@ -68,6 +75,8 @@ public class GameManager : SingleTon_01<GameManager>
     public void OpenStore()
     {
         Debug.Log("상점 오픈");
+        isUI = true;
+        chatUI.SetActive(true);
     }
 
 

@@ -73,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Outline_sampler:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6787ab158758c23488a981f75c8cf826, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -119,7 +119,7 @@ Material:
     - _Mix_BaseTexture: 0.49
     - _Mix_KageTexture: 0.5
     - _OcclusionStrength: 1
-    - _Outline_Width: 0
+    - _Outline_Width: 5
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1

@@ -104,26 +104,34 @@ public class PlayerCtrl : MonoBehaviour
 
     void Update()
     {
-        //캐릭터 이동
-        Move();
+        if (GameManager.Instance.isUI == false)
+        {
+            //캐릭터 이동
+            Move();
 
-        //중력 적용
-        SetGravity();
+            //중력 적용
+            SetGravity();
 
-        //플레이어 회전
-        BodyDirectionChange();
+            //플레이어 회전
+            BodyDirectionChange();
 
-        //state에 따른 애니메이션 재생
-        AnimationClipCtrl();
+            //state에 따른 애니메이션 재생
+            AnimationClipCtrl();
 
-        //조건에 맞춰서 플레이어 상태 변경
-        CheckAnimationState();
+            //조건에 맞춰서 플레이어 상태 변경
+            CheckAnimationState();
 
-        //공격 여부 확인
-        InputAttackCtrl();
+            //공격 여부 확인
+            InputAttackCtrl();
 
-        //앞 물체 확인
-        CheckFront();
+            //앞 물체 확인
+            CheckFront();
+        }
+        else
+        {
+            playerState = PlayerState.Idle;
+            CheckAnimationState();
+        }
     }
 
     /// <summary>
