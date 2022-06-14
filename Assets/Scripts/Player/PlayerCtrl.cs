@@ -278,16 +278,16 @@ public class PlayerCtrl : MonoBehaviour
             }
         }
 
-        //마우스 우클릭
-        if (Input.GetMouseButtonDown(1) == true)
-        {
-            //플레이어 공격 상태
-            if (playerState != PlayerState.Skill)
-            {
-                //플레이어가 공격 상태가 아니면 공격 상태로 변경
-                playerState = PlayerState.Skill;
-            }
-        }
+        ////마우스 우클릭
+        //if (Input.GetMouseButtonDown(1) == true)
+        //{
+        //    //플레이어 공격 상태
+        //    if (playerState != PlayerState.Skill)
+        //    {
+        //        //플레이어가 공격 상태가 아니면 공격 상태로 변경
+        //        playerState = PlayerState.Skill;
+        //    }
+        //}
     }
 
     /// <summary>

@@ -6,9 +6,15 @@ public class Hole : MonoBehaviour
 {
     float randomTime;
 
+    public Transform left;
+    public Transform right;
+
+    public float HitLeft;
+    public float HitRight;
+
     private void Start()
     {
-        SetGravity();
+        WhenSpawn();
     }
 
     /// <summary>
@@ -50,11 +56,34 @@ public class Hole : MonoBehaviour
         }
     }
 
-    //private void OnGUI()
-    //{
-    //    var labelStyle = new GUIStyle();
-    //    labelStyle.fontSize = 15;
-    //    labelStyle.normal.textColor = Color.white;
-    //    GUI.Label(new Rect(250, 10, 100, 20), "두더지 스폰 대기 시간: " + spawnTime.ToString(),labelStyle);
-    //}
+    private void WhenSpawn()
+    {
+        RaycastHit leftHit;
+        Ray leftRay = new Ray(left.position, Vector3.down);
+
+        RaycastHit rightHit;
+        Ray rightRay = new Ray(right.position, Vector3.down);
+
+        if (Physics.Raycast(leftRay, out leftHit, Mathf.Infinity))
+        {
+            if (Physics.Raycast(rightRay, out rightHit, Mathf.Infinity))
+            {
+                if(leftHit.collider.gameObject.CompareTag("Bottom") && rightHit.collider.gameObject.CompareTag("Bottom"))
+                {
+                    HitLeft = leftHit.point.y;
+                    HitRight = rightHit.point.y;
+                    if (Mathf.Abs(leftHit.point.y - rightHit.point.y) > 2)
+                    {
+                        transform.position = GameManager.Instance.randomTransformSpawn();
+                        WhenSpawn();
+                    }
+                    else
+                    {
+                        SetGravity();
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }
