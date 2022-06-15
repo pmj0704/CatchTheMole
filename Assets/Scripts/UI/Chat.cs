@@ -58,6 +58,9 @@ public class Chat : MonoBehaviour
                 break;
             case 2:
                 break;
+            case 8:
+                Exit();
+                break;
             default:
                 break;
         }
@@ -127,6 +130,17 @@ public class Chat : MonoBehaviour
     /// 버튼 클릭 시 뒤로가기
     /// </summary>
     public void Back()
+    {
+        talkerTxt.text = "잭";
+        chatTxt.text = "...";
+        chatTxt.gameObject.SetActive(true);
+        playerImg.color = Shadowed;
+        jackImg.color = Color.white;
+        selection.SetActive(false);
+        indexer = 8;
+    }
+
+    public void Exit()
     {
         indexer = 0;
         GameManager.Instance.isUI = false;
