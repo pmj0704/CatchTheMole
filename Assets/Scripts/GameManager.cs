@@ -9,8 +9,6 @@ public class GameManager : SingleTon_01<GameManager>
     public Text ScoreTxt;
     private int Score = 0;
 
-    public Transform terrain;
-
     [Header("적 관련")]
     public GameObject enemyMole;
     public Transform enemyHolder;
@@ -26,8 +24,18 @@ public class GameManager : SingleTon_01<GameManager>
     [Header("UI 관련")]
     public GameObject chatUI;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool isUI = false;
+
+    [Header("집 구매 관련")]
+    [HideInInspector]
+    public int currentHouseLvl = 0;
+    public Camera SubCam;
+    public Camera MainCam;
+    public Text ScorePriceTxt;
+
+    //OnHUI 표시 함수
+    public bool ShowMole = true;
 
     void Start()
     {
@@ -47,6 +55,7 @@ public class GameManager : SingleTon_01<GameManager>
     {
         //점수 텍스트 설정
         ScoreTxt.text = "Score: " + Score.ToString();
+        ScorePriceTxt.text = "Score: " + Score.ToString();
     }
 
     /// <summary>
@@ -57,6 +66,10 @@ public class GameManager : SingleTon_01<GameManager>
     {
         this.Score += addScore;
         UpdateUI();
+    }
+    public int GetScore()
+    {
+        return Score;
     }
 
     /// <summary>
@@ -83,19 +96,7 @@ public class GameManager : SingleTon_01<GameManager>
         enemyZ = Random.Range(-70.0f, 70.0f);
         //랜덤 X, Z값에 카메라가 안보이는 Y값에 두더지 생성
         Vector3 newPos = new Vector3(enemyX, 1000f, enemyZ);
-        StartCoroutine(treeCol());
         return newPos;
-    }
-
-    /// <summary>
-    /// 나무의 콜라이더를 켜주는 코루틴
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator treeCol()
-    {
-        yield return new WaitForSeconds(1f);
-        TerrainCollider terrainCollider;
-
     }
 
     /// <summary>
@@ -103,7 +104,6 @@ public class GameManager : SingleTon_01<GameManager>
     /// </summary>
     public void OpenStore()
     {
-        Debug.Log("상점 오픈");
         isUI = true;
         chatUI.SetActive(true);
     }
@@ -115,9 +115,20 @@ public class GameManager : SingleTon_01<GameManager>
         labelStyle.fontSize = 30;
         labelStyle.normal.textColor = Color.white;
 
-        GUI.Label(new Rect(250, 10, 100, 20), "필드에 활성화 된 두더지 수: " + FindObjectsOfType<EnemyMove>().Length, labelStyle);
-        GUI.Label(new Rect(250, 40, 100, 20), "가장 가까운 두더지와 거리: " + nearest, labelStyle);
-        GUI.Label(new Rect(250, 80, 100, 20), "가장 가까운 두더지 좌표: " + nearestVec, labelStyle);
+        if (ShowMole)
+        {
+            GUI.Label(new Rect(250, 10, 100, 20), "필드에 활성화 된 두더지 수: " + FindObjectsOfType<EnemyMove>().Length, labelStyle);
+            GUI.Label(new Rect(250, 40, 100, 20), "가장 가까운 두더지와 거리: " + nearest, labelStyle);
+            GUI.Label(new Rect(250, 80, 100, 20), "가장 가까운 두더지 좌표: " + nearestVec, labelStyle);
+        }
+        else
+        {
+            if(GUI.Button(new Rect(250, 10, 200, 200), "스코어 100 추가"))
+            {
+                Score += 100;
+                UpdateUI();
+            }
+        }
     }
 
     /// <summary>
@@ -141,5 +152,19 @@ public class GameManager : SingleTon_01<GameManager>
 
         nearest = Vector3.Distance(playerPos.position, neareastObject.transform.position);
         nearestVec = neareastObject.transform.position;
+    }
+
+    public void ChangeCam(bool isMain)
+    {
+        if(isMain)
+        {
+            SubCam.enabled = false;
+            MainCam.enabled = true;
+        }
+        else
+        {
+            SubCam.enabled = true;
+            MainCam.enabled = false;
+        }
     }
 }

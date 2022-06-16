@@ -22,6 +22,7 @@ public class Chat : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.isUI = true;
+        GameManager.Instance.ShowMole = false;
         StartCoroutine(whenStart());
         CheckNextScene();
     }
@@ -115,7 +116,10 @@ public class Chat : MonoBehaviour
     /// </summary>
     public void Forge()
     {
-
+        if(GameManager.Instance.currentHouseLvl == 0)
+        {
+            Fail();
+        }
     }
 
     /// <summary>
@@ -123,7 +127,7 @@ public class Chat : MonoBehaviour
     /// </summary>
     public void Store()
     {
-
+        GameManager.Instance.ChangeCam(false);
     }
 
     /// <summary>
@@ -141,11 +145,30 @@ public class Chat : MonoBehaviour
         nextEnable = true;
     }
 
+    /// <summary>
+    /// 집 강화 예외 처리
+    /// </summary>
+    public void Fail()
+    {
+        talkerTxt.text = "잭";
+        chatTxt.text = "집을 구매 해야 업그레이드를 할 수 있어.";
+        chatTxt.gameObject.SetActive(true);
+        playerImg.color = Shadowed;
+        jackImg.color = Color.white;
+        selection.SetActive(false);
+        indexer = 7;
+        nextEnable = true;
+    }
+
+    /// <summary>
+    /// UI 종료 함수
+    /// </summary>
     public void Exit()
     {
         indexer = 0;
         nextEnable = false;
         GameManager.Instance.isUI = false;
+        GameManager.Instance.ShowMole = true;
         gameObject.SetActive(false);
     }
 }

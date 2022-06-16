@@ -865,7 +865,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u25BA \uC7A5\uBE44\uB97C \uAC15\uD654 \uD558\uACE0 \uC2F6\uC5B4"
+  m_Text: "\u25BA \uC9D1\uC744 \uAFB8\uBBF8\uACE0 \uC2F6\uC5B4."
 --- !u!222 &319950723
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1475,7 +1475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2937220352573932403, guid: dda06eb7623a5b64595da60e92820cfd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dda06eb7623a5b64595da60e92820cfd, type: 3}
@@ -1554,7 +1554,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u25BA \uB354 \uC88B\uC740 \uC7A5\uBE44\uAC00 \uD544\uC694 \uD574"
+  m_Text: "\u25BA \uC9D1\uC744 \uC0AC\uACE0 \uC2F6\uC5B4."
 --- !u!222 &530229207
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1907,7 +1907,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u25BA \uBB58 \uD574\uC57C \uD560\uC9C0 \uBAA8\uB974\uACA0\uC5B4"
+  m_Text: "\u25BA \uBB58 \uD574\uC57C \uD560\uC9C0 \uBAA8\uB974\uACA0\uC5B4."
 --- !u!222 &676758534
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3123,7 +3123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1077045810
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7477,7 +7477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &506215363788946449
 PrefabInstance:
   m_ObjectHideFlags: 0
