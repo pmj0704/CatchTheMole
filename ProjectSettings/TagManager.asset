@@ -9,6 +9,7 @@ TagManager:
   - Bottom
   - Door
   - Jack
+  - Wall
   layers:
   - Default
   - TransparentFX

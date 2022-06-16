@@ -50,7 +50,7 @@ public class Hole : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Bottom"))
             {
             //그곳으로 이동
-               transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+               transform.position = new Vector3(transform.position.x, hit.point.y + 0.2f, transform.position.z);
                //transform.rotation = Quaternion.Euler(hit.normal.x, hit.normal.y, transform.rotation.z);
             }
         }

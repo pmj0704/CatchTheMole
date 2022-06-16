@@ -306,19 +306,15 @@ public class PlayerCtrl : MonoBehaviour
             {
                 case PlayerAttackState.atkStep_1:
                     playerAttackState = PlayerAttackState.atkStep_2;
-                    Debug.Log("1");
                     break;
                 case PlayerAttackState.atkStep_2:
                     playerAttackState = PlayerAttackState.atkStep_3;
-                    Debug.Log("2");
                     break;
                 case PlayerAttackState.atkStep_3:
                     playerAttackState = PlayerAttackState.atkStep_4;
-                    Debug.Log("3");
                     break;
                 case PlayerAttackState.atkStep_4:
                     playerAttackState = PlayerAttackState.atkStep_1;
-                    Debug.Log("4");
                     break;
                 default:
                     break;

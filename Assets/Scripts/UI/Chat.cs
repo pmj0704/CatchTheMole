@@ -137,12 +137,14 @@ public class Chat : MonoBehaviour
         playerImg.color = Shadowed;
         jackImg.color = Color.white;
         selection.SetActive(false);
-        indexer = 8;
+        indexer = 7;
+        nextEnable = true;
     }
 
     public void Exit()
     {
         indexer = 0;
+        nextEnable = false;
         GameManager.Instance.isUI = false;
         gameObject.SetActive(false);
     }
