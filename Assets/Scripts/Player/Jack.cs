@@ -9,4 +9,11 @@ public class Jack : MonoBehaviour, InteractiveObj
     {
         text.SetActive(interact);
     }
+    private void Update()
+    {
+        if(GameManager.Instance.isUI)
+        {
+            text.SetActive(false);
+        }
+    }
 }

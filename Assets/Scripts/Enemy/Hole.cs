@@ -9,8 +9,17 @@ public class Hole : MonoBehaviour
     public Transform left;
     public Transform right;
 
+    public GameObject ExMark;
+
     public float HitLeft;
     public float HitRight;
+
+    public float minSpawnRate = 2.0f;
+    public float maxSpawnRate = 8.0f;
+
+    public Transform hitPos;
+
+    public GameManager.Alphabet aplhabet = GameManager.Alphabet.NULL;
 
     private void Start()
     {
@@ -31,7 +40,9 @@ public class Hole : MonoBehaviour
     /// <returns></returns>
     private IEnumerator RandomTimeSpawn()
     {
-        randomTime = Random.Range(2.0f, 8.0f);
+        yield return new WaitForSeconds(1f);
+        ExMark.SetActive(false);
+        randomTime = Random.Range(minSpawnRate, maxSpawnRate);
         yield return new WaitForSeconds(randomTime);
         transform.GetChild(0).gameObject.SetActive(true);
     }
@@ -44,8 +55,14 @@ public class Hole : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(transform.position, Vector3.down);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        int layer = (1 << LayerMask.NameToLayer("Building")) + (1 << LayerMask.NameToLayer("Bottom"));
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity,layer))
         {
+            if(hit.collider.gameObject.CompareTag("Building"))
+            {
+                Respawn();
+            }
             //바닥에 닿으면
             if (hit.collider.gameObject.CompareTag("Bottom"))
             {
@@ -56,6 +73,9 @@ public class Hole : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 스폰 후 두더지
+    /// </summary>
     private void WhenSpawn()
     {
         RaycastHit leftHit;
@@ -68,22 +88,43 @@ public class Hole : MonoBehaviour
         {
             if (Physics.Raycast(rightRay, out rightHit, Mathf.Infinity))
             {
+                //두더지가 평평한 곳에 소환 되도록 지점을 찾고
                 if(leftHit.collider.gameObject.CompareTag("Bottom") && rightHit.collider.gameObject.CompareTag("Bottom"))
                 {
                     HitLeft = leftHit.point.y;
                     HitRight = rightHit.point.y;
+                    //평평한 곳에 스폰
                     if (Mathf.Abs(leftHit.point.y - rightHit.point.y) > 2)
                     {
                         transform.position = GameManager.Instance.randomTransformSpawn();
                         WhenSpawn();
                     }
+                    //아니면 다시
                     else
                     {
-                        SetGravity();
+                        Respawn();
                         return;
                     }
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// 두더지를 재생성 하는 함수
+    /// </summary>
+    private void Respawn()
+    {
+        transform.position = GameManager.Instance.randomTransformSpawn();
+        SetGravity();
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        //서로 겹치지 않기 위한 함수
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Respawn();
         }
     }
 }

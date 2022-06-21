@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class EnemyMove : MonoBehaviour
 {
+    public GameObject ExMark;
+
     private void OnEnable()
     {
         //두더지가 활성화 되면 이동 코루틴 활성화
@@ -38,6 +40,8 @@ public class EnemyMove : MonoBehaviour
         if(collision.gameObject.CompareTag("Hammer"))
         {
             //점수를 추가하고 오브젝트를 끈다. 재생성을 위채 SendMsg
+            ExMark.SetActive(true);
+
             SendMessageUpwards("SummonEnemy");
             GameManager.Instance.AddScore(100);
             gameObject.SetActive(false);

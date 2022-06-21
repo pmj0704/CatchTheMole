@@ -58,6 +58,7 @@ public class Chat : MonoBehaviour
                 nextEnable = false;
                 break;
             case 2:
+                nextEnable = false;
                 break;
             case 8:
                 Exit();
@@ -127,6 +128,19 @@ public class Chat : MonoBehaviour
     /// </summary>
     public void Store()
     {
+        GameManager.Instance.SetUI(false);
+
+        GameManager.Instance.enterStore = true;
+
+        talkerTxt.text = "잭";
+        chatTxt.text = "좋은 집이네..";
+        chatTxt.gameObject.SetActive(true);
+        playerImg.color = Shadowed;
+        jackImg.color = Color.white;
+        selection.SetActive(false);
+        indexer = 7;
+        nextEnable = true;
+
         GameManager.Instance.ChangeCam(false);
     }
 
@@ -151,7 +165,7 @@ public class Chat : MonoBehaviour
     public void Fail()
     {
         talkerTxt.text = "잭";
-        chatTxt.text = "집을 구매 해야 업그레이드를 할 수 있어.";
+        chatTxt.text = "집을 구매 해야 인테리어를 할 수 있어.";
         chatTxt.gameObject.SetActive(true);
         playerImg.color = Shadowed;
         jackImg.color = Color.white;

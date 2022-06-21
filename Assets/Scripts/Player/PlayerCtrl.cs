@@ -440,7 +440,7 @@ public class PlayerCtrl : MonoBehaviour
                 break;
             case PlayerState.Walk:
                 AtkCapsuleCollider.enabled = false;
-                if (nowSdp > 2.0f)
+                if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     playerState = PlayerState.Run;
                 }
@@ -451,7 +451,7 @@ public class PlayerCtrl : MonoBehaviour
                 break;
             case PlayerState.Run:
                 AtkCapsuleCollider.enabled = false;
-                if (nowSdp < 2.0f)
+                if (Input.GetKeyUp(KeyCode.LeftShift))
                 {
                     playerState = PlayerState.Walk;
                 }

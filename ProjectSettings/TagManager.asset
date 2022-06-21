@@ -10,6 +10,7 @@ TagManager:
   - Door
   - Jack
   - Wall
+  - Building
   layers:
   - Default
   - TransparentFX
@@ -17,10 +18,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Bottom
+  - Building
+  - TransparentTerrain
   - 
   - 
   - 

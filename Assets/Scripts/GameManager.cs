@@ -28,17 +28,28 @@ public class GameManager : SingleTon_01<GameManager>
     public bool isUI = false;
 
     [Header("집 구매 관련")]
-    [HideInInspector]
     public int currentHouseLvl = 0;
     public Camera SubCam;
     public Camera MainCam;
     public Text ScorePriceTxt;
+    public Transform house;
+    public GameObject houseUI;
+    public GameObject mainUI;
+    public bool enterStore = false;
+    private Store store = null;
 
-    //OnHUI 표시 함수
+    //OnGUI 표시 함수
     public bool ShowMole = true;
+
+    public enum Alphabet
+    {
+        F, E_Y, V, E_B, R, NULL
+    };
+
 
     void Start()
     {
+        store = FindObjectOfType<Store>();
         UpdateUI();
         SummonMoles();
     }
@@ -47,6 +58,7 @@ public class GameManager : SingleTon_01<GameManager>
     {
         FindNearMole();
     }
+
 
     /// <summary>
     /// UI를 업데이트 해주는 함수
@@ -82,7 +94,12 @@ public class GameManager : SingleTon_01<GameManager>
 
         for (int i = 0; i < enemyCount; i++)
         {
-            Instantiate(enemyMole, enemyHolder).transform.position = randomTransformSpawn();
+            GameObject summoningMole = Instantiate(enemyMole, enemyHolder);
+            summoningMole.transform.position = randomTransformSpawn();
+            if(i < 5)
+            {
+                summoningMole.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(true);
+            }
         }
     }
 
@@ -154,6 +171,10 @@ public class GameManager : SingleTon_01<GameManager>
         nearestVec = neareastObject.transform.position;
     }
 
+    /// <summary>
+    /// 집 구매 씬과 메인 씬을 카메라로 이동하는 함수
+    /// </summary>
+    /// <param name="isMain">메인 씬 ON?</param>
     public void ChangeCam(bool isMain)
     {
         if(isMain)
@@ -165,6 +186,55 @@ public class GameManager : SingleTon_01<GameManager>
         {
             SubCam.enabled = true;
             MainCam.enabled = false;
+        }
+    }
+
+    /// <summary>
+    /// 구매한 집을 메인 씬에 표시하는 함수
+    /// </summary>
+    public void SetHouse()
+    {
+        for (int i = 0; i < house.transform.childCount; i++)
+        {
+            if(i == currentHouseLvl-1)
+            {
+                house.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                house.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 메인를 키고 집 UI를 끄는 함수
+    /// </summary>
+    /// <param name="main">메인 UI ON?</param>
+    public void SetUI(bool main)
+    {
+        mainUI.SetActive(main);
+        houseUI.SetActive(!main);
+    }
+
+    public void GetAlphabet(Alphabet alphabet)
+    {
+        switch (alphabet)
+        {
+            case Alphabet.F:
+                break;
+            case Alphabet.E_Y:
+                break;
+            case Alphabet.V:
+                break;
+            case Alphabet.E_B:
+                break;
+            case Alphabet.R:
+                break;
+            case Alphabet.NULL:
+                break;
+            default:
+                break;
         }
     }
 }
