@@ -108,6 +108,12 @@ MonoBehaviour:
   maxSpawnRate: 8
   hitPos: {fileID: 0}
   aplhabet: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 384
+  bottomLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &2619470078581352411
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +286,7 @@ GameObject:
   - component: {fileID: 1870738987239274072}
   - component: {fileID: 8219475060150195880}
   - component: {fileID: 7505391941516969311}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +365,7 @@ BoxCollider:
   m_GameObject: {fileID: 4773121457557698226}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Center: {x: 0.0000002384187, y: 0, z: 0.00000005960469}

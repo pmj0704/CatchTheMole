@@ -21,9 +21,12 @@ public class Hole : MonoBehaviour
 
     public GameManager.Alphabet aplhabet = GameManager.Alphabet.NULL;
 
+    public LayerMask layerMask;
+    public LayerMask bottomLayerMask;
+
     private void Start()
     {
-        WhenSpawn();
+        Respawn();
     }
 
     /// <summary>
@@ -55,9 +58,7 @@ public class Hole : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(transform.position, Vector3.down);
 
-        int layer = (1 << LayerMask.NameToLayer("Building")) + (1 << LayerMask.NameToLayer("Bottom"));
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity,layer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             if(hit.collider.gameObject.CompareTag("Building"))
             {
@@ -84,28 +85,24 @@ public class Hole : MonoBehaviour
         RaycastHit rightHit;
         Ray rightRay = new Ray(right.position, Vector3.down);
 
-        if (Physics.Raycast(leftRay, out leftHit, Mathf.Infinity))
+        if (Physics.Raycast(leftRay, out leftHit, Mathf.Infinity, bottomLayerMask))
         {
-            if (Physics.Raycast(rightRay, out rightHit, Mathf.Infinity))
+            if (Physics.Raycast(rightRay, out rightHit, Mathf.Infinity,bottomLayerMask))
             {
                 //두더지가 평평한 곳에 소환 되도록 지점을 찾고
-                if(leftHit.collider.gameObject.CompareTag("Bottom") && rightHit.collider.gameObject.CompareTag("Bottom"))
-                {
                     HitLeft = leftHit.point.y;
                     HitRight = rightHit.point.y;
-                    //평평한 곳에 스폰
+                    //평평한 곳이 아니면 다시
                     if (Mathf.Abs(leftHit.point.y - rightHit.point.y) > 2)
                     {
-                        transform.position = GameManager.Instance.randomTransformSpawn();
-                        WhenSpawn();
+                        Respawn();
                     }
-                    //아니면 다시
+                    //아니면 내려감
                     else
                     {
-                        Respawn();
-                        return;
+                        SetGravity();
+                    return;
                     }
-                }
             }
         }
     }
@@ -116,7 +113,7 @@ public class Hole : MonoBehaviour
     private void Respawn()
     {
         transform.position = GameManager.Instance.randomTransformSpawn();
-        SetGravity();
+        WhenSpawn();
     }
 
     public void OnCollisionEnter(Collision collision)
