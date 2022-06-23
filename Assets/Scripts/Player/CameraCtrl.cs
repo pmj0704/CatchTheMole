@@ -57,8 +57,6 @@ public class CameraCtrl : MonoBehaviour
     /// </summary>
     private void ThridCamera()
     {
-
-        
         //현재 타겟 Y축 각도 값
         float objTargetRotationAngle = objTargetTransform.eulerAngles.y;
 
@@ -79,23 +77,23 @@ public class CameraCtrl : MonoBehaviour
         cameraTransform.position = objTargetTransform.position;
         cameraTransform.position -= nowRotation * Vector3.forward * distance;
 
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, objTargetTransform.position);
-        if (Physics.Raycast(ray, out hit, distance))
-        {
-            if (hit.collider.CompareTag("Bottom")|| hit.collider.CompareTag("Wall"))
-            {
-                transform.position = hit.point;
-            }
-            else
-            {
-                cameraTransform.position = new Vector3(cameraTransform.position.x, nowHeight, cameraTransform.position.z);
-            }
-        }
-        else
-        {
+        //RaycastHit hit;
+        //Ray ray = new Ray(transform.position, objTargetTransform.position);
+        //if (Physics.Raycast(ray, out hit, distance))
+        //{
+        //    //if (hit.collider.CompareTag("Bottom")|| hit.collider.CompareTag("Wall"))
+        //    //{
+        //    //    transform.position = hit.point;
+        //    //}
+        //    //else
+        //    {
+        //        cameraTransform.position = new Vector3(cameraTransform.position.x, nowHeight, cameraTransform.position.z);
+        //    //}
+        //}
+        //else
+        //{
             cameraTransform.position = new Vector3(cameraTransform.position.x, nowHeight, cameraTransform.position.z);
-        }
+        //}
 
         cameraTransform.LookAt(objTargetTransform);
     }

@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class Store : MonoBehaviour
 {
     public GameObject[] gameobjs;
+    public GameObject[] blackobjs;
     public int houseTryingToBuy = 1;
     public int[] housePrice = { 500, 1000, 2000, 4000, 8000 };
     public Text buyTxt;
     private bool CanBuy = false;
+    public Text ScorePriceTxt;
 
     public void ShowHouse(int house)
     {
@@ -17,12 +19,25 @@ public class Store : MonoBehaviour
         {
             item.SetActive(false);
         }
+        foreach (var item in blackobjs)
+        {
+            item.SetActive(false);
+        }
 
         if (house > 0)
         {
             houseTryingToBuy = house - 1;
-            gameobjs[houseTryingToBuy].SetActive(true);
+            if (GameManager.Instance.currentHouseLvl >= house)
+            {
+                gameobjs[houseTryingToBuy].SetActive(true);
+            }
+            else
+            {
+                blackobjs[houseTryingToBuy].SetActive(true);
+            }
         }
+
+        ScorePriceTxt.text = housePrice[houseTryingToBuy].ToString() + " Score";
     }
 
     public void Back()
@@ -31,8 +46,13 @@ public class Store : MonoBehaviour
         {
             item.SetActive(false);
         }
+        foreach (var item in blackobjs)
+        {
+            item.SetActive(false);
+        }
         GameManager.Instance.SetUI(true);
         GameManager.Instance.ChangeCam(true);
+        ScorePriceTxt.text = "";
     }
 
     private void canBuy()
@@ -67,6 +87,9 @@ public class Store : MonoBehaviour
             GameManager.Instance.AddScore(-housePrice[houseTryingToBuy]);
             CanBuy = false;
             GameManager.Instance.SetHouse();
+            gameobjs[houseTryingToBuy].SetActive(true);
+            blackobjs[houseTryingToBuy].SetActive(false);
+            ScorePriceTxt.text = "";
         }
     }
 
