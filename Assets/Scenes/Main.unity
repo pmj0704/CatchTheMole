@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 66896547}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 89762600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_front_L_01_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -894,7 +894,7 @@ GameObject:
   - component: {fileID: 191586628}
   - component: {fileID: 191586630}
   - component: {fileID: 191586629}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_front_R_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3174,7 +3174,7 @@ GameObject:
   - component: {fileID: 556651266}
   - component: {fileID: 556651265}
   - component: {fileID: 556651264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: little_farm_bottom
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4021,14 +4021,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724631550}
-  m_LocalRotation: {x: 0.33067107, y: 0.38451022, z: 0.7050765, w: 0.49565688}
-  m_LocalPosition: {x: 0.02, y: -0.009, z: 0.033}
+  m_LocalRotation: {x: 0.16559727, y: -0.22677785, z: 0.9429882, w: 0.17866877}
+  m_LocalPosition: {x: 0.029, y: 0.001, z: -0.016}
   m_LocalScale: {x: 0.1, y: 0.10000001, z: 0.1}
   m_Children:
   - {fileID: 385608051}
   m_Father: {fileID: 1548092490}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -12.381, y: 60.186, z: 102.593}
+  m_LocalEulerAnglesHint: {x: 29.135, y: 15.354, z: 162.555}
 --- !u!1001 &742269589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5794,7 +5794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 812548336}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_front_L_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6070,7 +6070,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 851561196}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: door_01_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7303,7 +7303,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 984652937}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7549,7 +7549,7 @@ GameObject:
   - component: {fileID: 1053672449}
   - component: {fileID: 1053672451}
   - component: {fileID: 1053672450}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: door_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8953,7 +8953,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1204674616}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_back_L_01_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9065,7 +9065,7 @@ GameObject:
   - component: {fileID: 1228299755}
   - component: {fileID: 1228299754}
   - component: {fileID: 1228299753}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CountryHouse (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9350,10 +9350,7 @@ MonoBehaviour:
   IdleClip: {fileID: 7400000, guid: c626b876e58fec14baba226d5be44007, type: 2}
   WalkClip: {fileID: 7400000, guid: 04e9b2dcaa0ac7a40a531f101c064421, type: 2}
   RunClip: {fileID: 7400000, guid: 44b72dd11eb3bb946914efdde02b58a8, type: 2}
-  AtkClip1: {fileID: 7400000, guid: c931cb0a86933f44daacebe9153a2d71, type: 2}
-  AtkClip2: {fileID: 7400000, guid: ef4b6870a609c594d92d7fd2370c5af4, type: 2}
-  AtkClip3: {fileID: 7400000, guid: 9cc4e8eb72474da4796c235802a9cd79, type: 2}
-  AtkClip4: {fileID: 7400000, guid: 8c9cede804235c14f9999de40e7cc5d5, type: 2}
+  AtkClip1: {fileID: 7400000, guid: ef4b6870a609c594d92d7fd2370c5af4, type: 2}
   rayStart: {fileID: 532941622}
   rayDis: 5
   doorTxt:
@@ -9376,7 +9373,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!4 &1275498813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4487240066605039860, guid: b6a84cb21b1f03c4899aa767b7ac48bb, type: 3}
@@ -9415,8 +9412,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 1
+  m_Radius: 0.42
+  m_Height: 1.34
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!4 &1284711471 stripped
@@ -9435,7 +9432,7 @@ GameObject:
   - component: {fileID: 1289787260}
   - component: {fileID: 1289787262}
   - component: {fileID: 1289787261}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_back_L_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9517,7 +9514,7 @@ GameObject:
   - component: {fileID: 1290091105}
   - component: {fileID: 1290091104}
   - component: {fileID: 1290091103}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: little_farm_extra
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -9681,7 +9678,7 @@ GameObject:
   - component: {fileID: 1351067064}
   - component: {fileID: 1351067066}
   - component: {fileID: 1351067065}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CloseTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11916,7 +11913,7 @@ GameObject:
   - component: {fileID: 1443327023}
   - component: {fileID: 1443327025}
   - component: {fileID: 1443327024}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -12258,7 +12255,7 @@ GameObject:
   - component: {fileID: 1536941032}
   - component: {fileID: 1536941034}
   - component: {fileID: 1536941033}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OpenTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12608,7 +12605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1637796141}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: country_house_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12875,7 +12872,7 @@ GameObject:
   - component: {fileID: 1746111813}
   - component: {fileID: 1746111815}
   - component: {fileID: 1746111814}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_front_L_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12954,7 +12951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1754110478}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_front_R_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13077,43 +13074,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 5.81
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.61
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9891737
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000000014901158
+      value: 0.12642789
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.0008576866
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000014901158
+      value: 0.07450327
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 165.923
+      value: 165.508
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -95.306
+      value: -178.986
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -33.121002
+      value: -171.256
       objectReference: {fileID: 0}
     - target: {fileID: -7154935748350325978, guid: b68324642221c09469c0b0c2000f804f, type: 3}
       propertyPath: m_LocalScale.x
@@ -13194,7 +13191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1851128324}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: door_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13571,7 +13568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1863194283}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_back_L_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13613,7 +13610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1878113417}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_back_R_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13697,7 +13694,7 @@ GameObject:
   - component: {fileID: 1906756748}
   - component: {fileID: 1906756747}
   - component: {fileID: 1906756746}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: litlle_farm_top
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -14018,7 +14015,7 @@ GameObject:
   - component: {fileID: 1967941528}
   - component: {fileID: 1967941530}
   - component: {fileID: 1967941529}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_back_R_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14253,7 +14250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2037641871}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_front_R_01_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14318,7 +14315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2045632299}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: flap_back_R_01_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
