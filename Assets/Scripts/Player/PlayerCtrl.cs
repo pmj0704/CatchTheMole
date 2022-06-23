@@ -75,9 +75,9 @@ public class PlayerCtrl : MonoBehaviour
     public AnimationClip WalkClip = null;
     public AnimationClip RunClip = null;
     public AnimationClip AtkClip1 = null;
-    public AnimationClip AtkClip2 = null;
-    public AnimationClip AtkClip3 = null;
-    public AnimationClip AtkClip4 = null;
+    //public AnimationClip AtkClip2 = null;
+    //public AnimationClip AtkClip3 = null;
+    //public AnimationClip AtkClip4 = null;
 
     [Header("Ray")]
     public Transform rayStart;
@@ -97,9 +97,9 @@ public class PlayerCtrl : MonoBehaviour
         playerState = PlayerState.Idle;
 
         AtkClip1.wrapMode = WrapMode.Once;
-        AtkClip2.wrapMode = WrapMode.Once;
-        AtkClip3.wrapMode = WrapMode.Once;
-        AtkClip4.wrapMode = WrapMode.Once;
+        //AtkClip2.wrapMode = WrapMode.Once;
+        //AtkClip3.wrapMode = WrapMode.Once;
+        //AtkClip4.wrapMode = WrapMode.Once;
     }
 
     void Update()
@@ -242,40 +242,40 @@ public class PlayerCtrl : MonoBehaviour
                 //공격상태 초기화
                 playerAttackState = PlayerAttackState.atkStep_1;
             }
-            else
-            {
-                //플레이어 상태가 공격상태 
-                //공격 상태에 따른 분류
-                switch (playerAttackState)
-                {
-                    case PlayerAttackState.atkStep_1:
-                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip1.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-                        {
-                            flagNextAttack = true;
-                        }
-                        break;
-                    case PlayerAttackState.atkStep_2:
-                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip2.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-                        {
-                            flagNextAttack = true;
-                        }
-                        break;
-                    case PlayerAttackState.atkStep_3:
-                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip3.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-                        {
-                            flagNextAttack = true;
-                        }
-                        break;
-                    case PlayerAttackState.atkStep_4:
-                        if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip4.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
-                        {
-                            flagNextAttack = true;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //else
+            //{
+            //    //플레이어 상태가 공격상태 
+            //    //공격 상태에 따른 분류
+            //    switch (playerAttackState)
+            //    {
+            //        case PlayerAttackState.atkStep_1:
+            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip1.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+            //            {
+            //                flagNextAttack = true;
+            //            }
+            //            break;
+            //        case PlayerAttackState.atkStep_2:
+            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip2.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+            //            {
+            //                flagNextAttack = true;
+            //            }
+            //            break;
+            //        case PlayerAttackState.atkStep_3:
+            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip3.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+            //            {
+            //                flagNextAttack = true;
+            //            }
+            //            break;
+            //        case PlayerAttackState.atkStep_4:
+            //            if (animationPlayer.GetCurrentAnimatorStateInfo(0).IsName(AtkClip4.name) && animationPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2f)
+            //            {
+            //                flagNextAttack = true;
+            //            }
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
         }
 
         ////마우스 우클릭
@@ -415,6 +415,7 @@ public class PlayerCtrl : MonoBehaviour
                 AnimationClipPlay(RunClip);
                 break;
             case PlayerState.Atk:
+                AnimationClipPlay(AtkClip1);
 
                 break;
             case PlayerState.Skill:
@@ -464,35 +465,43 @@ public class PlayerCtrl : MonoBehaviour
             case PlayerState.Atk:
                 AtkCapsuleCollider.enabled = true;
                 stopPlayer = true;
-                AtkAnimationCtrl();
+                //AtkAnimationCtrl();
+                AnimationClipPlay(AtkClip1);
                 break;
             case PlayerState.Skill:
                 break;
         }
     }
-    /// <summary>
-    /// 공격 애니메이션 재생
-    /// </summary>
-    void AtkAnimationCtrl()
+    ///// <summary>
+    ///// 공격 애니메이션 재생
+    ///// </summary>
+    //void AtkAnimationCtrl()
+    //{
+    //    //만약 공격 상태가?
+    //    switch (playerAttackState)
+    //    {
+    //        case PlayerAttackState.atkStep_1:
+    //            AnimationClipPlay(AtkClip1);
+    //            break;
+    //        case PlayerAttackState.atkStep_2:
+    //            AnimationClipPlay(AtkClip2);
+    //            break;
+    //        case PlayerAttackState.atkStep_3:
+    //            AnimationClipPlay(AtkClip3);
+    //            break;
+    //        case PlayerAttackState.atkStep_4:
+    //            AnimationClipPlay(AtkClip4);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    public void HammerCol(bool stopPlayer)
     {
-        //만약 공격 상태가?
-        switch (playerAttackState)
-        {
-            case PlayerAttackState.atkStep_1:
-                AnimationClipPlay(AtkClip1);
-                break;
-            case PlayerAttackState.atkStep_2:
-                AnimationClipPlay(AtkClip2);
-                break;
-            case PlayerAttackState.atkStep_3:
-                AnimationClipPlay(AtkClip3);
-                break;
-            case PlayerAttackState.atkStep_4:
-                AnimationClipPlay(AtkClip4);
-                break;
-            default:
-                break;
-        }
+        this.stopPlayer = stopPlayer;
+        characterCtrl.Move(-transform.forward * 0.05f);
     }
+
 
 }
