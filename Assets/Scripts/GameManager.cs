@@ -41,11 +41,11 @@ public class GameManager : SingleTon_01<GameManager>
     //OnGUI 표시 함수
     public bool ShowMole = true;
 
-    public enum Alphabet
-    {
-        F, E_Y, V, E_B, R, NULL
-    };
-
+    [Header("피버 관련")]
+    public Text[] feverTxt;
+    public Color[] feverColor;
+    bool[] fever = { false, false, false, false, false };
+    public bool isFeverTime = false;
 
     void Start()
     {
@@ -77,6 +77,7 @@ public class GameManager : SingleTon_01<GameManager>
     public void AddScore(int addScore)
     {
         this.Score += addScore;
+        if(isFeverTime) this.Score += addScore;
         UpdateUI();
     }
     public int GetScore()
@@ -98,6 +99,7 @@ public class GameManager : SingleTon_01<GameManager>
             summoningMole.transform.position = randomTransformSpawn();
             if(i < 5)
             {
+                summoningMole.GetComponent<Hole>().isFever = true;
                 summoningMole.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(true);
             }
         }
@@ -137,6 +139,11 @@ public class GameManager : SingleTon_01<GameManager>
             GUI.Label(new Rect(250, 10, 100, 20), "필드에 활성화 된 두더지 수: " + FindObjectsOfType<EnemyMove>().Length, labelStyle);
             GUI.Label(new Rect(250, 40, 100, 20), "가장 가까운 두더지와 거리: " + nearest, labelStyle);
             GUI.Label(new Rect(250, 80, 100, 20), "가장 가까운 두더지 좌표: " + nearestVec, labelStyle);
+            if (GUI.Button(new Rect(250, 120, 200, 40), "피버 타임"))
+            if (GUI.Button(new Rect(250, 120, 200, 40), "피버 타임"))
+            {
+                isFeverTime = true;
+            }
         }
         else
         {
@@ -217,24 +224,28 @@ public class GameManager : SingleTon_01<GameManager>
         houseUI.SetActive(!main);
     }
 
-    public void GetAlphabet(Alphabet alphabet)
+    /// <summary>
+    /// 피버 업데이트 함수
+    /// </summary>
+    /// <param name="index"></param>
+    public void CheckFever(int index)
     {
-        switch (alphabet)
+        fever[index] = true;
+        feverTxt[index].color = feverColor[index]; 
+        if(fever[0] && fever[1] && fever[2] && fever[3] && fever[4])
         {
-            case Alphabet.F:
-                break;
-            case Alphabet.E_Y:
-                break;
-            case Alphabet.V:
-                break;
-            case Alphabet.E_B:
-                break;
-            case Alphabet.R:
-                break;
-            case Alphabet.NULL:
-                break;
-            default:
-                break;
+            isFeverTime = true;
+        }
+    }
+
+    /// <summary>
+    /// 피버 UI 검정색으로 하기
+    /// </summary>
+    public void BlackFeverUI()
+    {
+        for(int i = 0; i < feverTxt.Length; i++)
+        {
+            feverTxt[i].color = Color.black;
         }
     }
 }

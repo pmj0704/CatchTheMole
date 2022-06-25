@@ -43,6 +43,7 @@ public class PlayerCtrl : MonoBehaviour
     //캐릭터 정지 Flag
     private bool stopPlayer = false;
 
+    
 
     //animation component 캐싱 준비
     private Animator animationPlayer = null;
@@ -86,6 +87,10 @@ public class PlayerCtrl : MonoBehaviour
     [Header("문 상호 작용")]
     public GameObject[] doorTxt;
 
+    public float FeverLength = 10f;
+
+    public GameObject trail;
+
     void Start()
     {
         //CharacterController 캐싱
@@ -126,6 +131,10 @@ public class PlayerCtrl : MonoBehaviour
 
             //앞 물체 확인
             CheckFront();
+
+            //피버 상태인지 확인
+            Fever();
+
         }
         else
         {
@@ -503,5 +512,28 @@ public class PlayerCtrl : MonoBehaviour
         characterCtrl.Move(-transform.forward * 0.05f);
     }
 
+    void Fever()
+    {
+        if(GameManager.Instance.isFeverTime)
+        {
+            StartCoroutine(FeverTime());
+        }
+    }
 
+    IEnumerator FeverTime()
+    {
+        GameManager.Instance.isFeverTime = false;
+
+        movedSpd *= 3;
+        runMoveSpd *=  3;
+
+        trail.SetActive(true);
+        yield return new WaitForSeconds(FeverLength);
+
+        movedSpd /=  3;
+        runMoveSpd /=  3;
+
+        GameManager.Instance.BlackFeverUI();
+        trail.SetActive(false);
+    }
 }

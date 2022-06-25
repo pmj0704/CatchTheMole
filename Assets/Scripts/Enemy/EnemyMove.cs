@@ -42,6 +42,7 @@ public class EnemyMove : MonoBehaviour
             //점수를 추가하고 오브젝트를 끈다. 재생성을 위채 SendMsg
             ExMark.SetActive(true);
 
+            SendMessageUpwards("Fever");
             SendMessageUpwards("SummonEnemy");
             GameManager.Instance.AddScore(100);
             gameObject.SetActive(false);

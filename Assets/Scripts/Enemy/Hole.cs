@@ -13,16 +13,20 @@ public class Hole : MonoBehaviour
 
     public float HitLeft;
     public float HitRight;
+    public float HitBottom;
 
     public float minSpawnRate = 2.0f;
     public float maxSpawnRate = 8.0f;
 
+    public bool isFever = false;
+
     public Transform hitPos;
 
-    public GameManager.Alphabet aplhabet = GameManager.Alphabet.NULL;
+    public int alphabet = 100;
 
     public LayerMask layerMask;
     public LayerMask bottomLayerMask;
+
 
     private void Start()
     {
@@ -60,16 +64,16 @@ public class Hole : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
-            if(hit.collider.gameObject.CompareTag("Building"))
+            if (hit.collider.gameObject.CompareTag("Building"))
             {
                 Respawn();
             }
             //바닥에 닿으면
             if (hit.collider.gameObject.CompareTag("Bottom"))
             {
-            //그곳으로 이동
-               transform.position = new Vector3(transform.position.x, hit.point.y + 0.2f, transform.position.z);
-               //transform.rotation = Quaternion.Euler(hit.normal.x, hit.normal.y, transform.rotation.z);
+                //그곳으로 이동
+                transform.position = new Vector3(transform.position.x, hit.point.y + 0.2f, transform.position.z);
+                //transform.rotation = Quaternion.Euler(hit.normal.x, hit.normal.y, transform.rotation.z);
             }
         }
     }
@@ -79,6 +83,10 @@ public class Hole : MonoBehaviour
     /// </summary>
     private void WhenSpawn()
     {
+
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, Vector3.down);
+
         RaycastHit leftHit;
         Ray leftRay = new Ray(left.position, Vector3.down);
 
@@ -87,25 +95,35 @@ public class Hole : MonoBehaviour
 
         if (Physics.Raycast(leftRay, out leftHit, Mathf.Infinity, bottomLayerMask))
         {
-            if (Physics.Raycast(rightRay, out rightHit, Mathf.Infinity,bottomLayerMask))
+            if (Physics.Raycast(rightRay, out rightHit, Mathf.Infinity, bottomLayerMask))
             {
                 //두더지가 평평한 곳에 소환 되도록 지점을 찾고
-                    HitLeft = leftHit.point.y;
-                    HitRight = rightHit.point.y;
-                    //평평한 곳이 아니면 다시
-                    if (Mathf.Abs(leftHit.point.y - rightHit.point.y) > 2)
+                HitLeft = leftHit.point.y;
+                HitRight = rightHit.point.y;
+                //평평한 곳이 아니면 다시
+                if (Mathf.Abs(HitLeft - HitRight) > 2)
+                {
+                    Respawn();
+                }
+                //아니면 내려감
+                else
+                {
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, bottomLayerMask))
                     {
-                        Respawn();
+                        HitBottom = hit.point.y;
+                        if ((HitLeft - HitBottom) > 4)
+                        {
+                            Respawn();
+                        }
                     }
-                    //아니면 내려감
-                    else
-                    {
-                        SetGravity();
-                    return;
-                    }
+                }
+
+                SetGravity();
+                return;
             }
         }
     }
+
 
     /// <summary>
     /// 두더지를 재생성 하는 함수
@@ -114,6 +132,25 @@ public class Hole : MonoBehaviour
     {
         transform.position = GameManager.Instance.randomTransformSpawn();
         WhenSpawn();
+    }
+
+    /// <summary>
+    /// 피버 타임을 위한 함수
+    /// </summary>
+    public void Fever()
+    {
+        if(isFever)
+        {
+            //어느 알파벳인지 지정해주는 함수
+            for(int i = 0; i < 5; i++)
+            {
+                if (transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject.activeInHierarchy)
+                {
+                    alphabet = i;
+                }
+            }
+            GameManager.Instance.CheckFever(alphabet);
+        }
     }
 
     public void OnCollisionEnter(Collision collision)

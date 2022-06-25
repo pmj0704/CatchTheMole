@@ -14,6 +14,10 @@ public class CameraCtrl : MonoBehaviour
     //player transform 캐싱
     private Transform objTargetTransform = null;
 
+    public Transform camTrans;
+
+    public LayerMask layerMask;
+
 
     [Header("3인칭 카메라")]
     //떨어진 거리
@@ -21,10 +25,16 @@ public class CameraCtrl : MonoBehaviour
 
     //추가 높이
     public float height = 1.75f;
+    float originalDis = 0f;
+    float originalHeight = 0f;
 
     //smooth time
     public float heightDamp = 2f;
     public float rotationDamping = 3f;
+
+    public bool inHouse = false;
+
+
     private void LateUpdate()
     {
         if (objTarget == null)
@@ -43,6 +53,8 @@ public class CameraCtrl : MonoBehaviour
     void Start()
     {
         cameraTransform = GetComponent<Transform>();
+        originalDis = distance;
+        originalHeight = height;
 
         //타겟이 있는가?
         if (objTarget != null)
@@ -77,23 +89,23 @@ public class CameraCtrl : MonoBehaviour
         cameraTransform.position = objTargetTransform.position;
         cameraTransform.position -= nowRotation * Vector3.forward * distance;
 
-        //RaycastHit hit;
-        //Ray ray = new Ray(transform.position, objTargetTransform.position);
-        //if (Physics.Raycast(ray, out hit, distance))
-        //{
-        //    //if (hit.collider.CompareTag("Bottom")|| hit.collider.CompareTag("Wall"))
-        //    //{
-        //    //    transform.position = hit.point;
-        //    //}
-        //    //else
-        //    {
-        //        cameraTransform.position = new Vector3(cameraTransform.position.x, nowHeight, cameraTransform.position.z);
-        //    //}
-        //}
-        //else
-        //{
-            cameraTransform.position = new Vector3(cameraTransform.position.x, nowHeight, cameraTransform.position.z);
-        //}
+        RaycastHit hit;
+        Ray ray = new Ray(camTrans.position, transform.position);
+
+        if (!inHouse)
+        {
+            if (Physics.Raycast(ray, out hit, originalDis, layerMask))
+            {
+                distance = Vector3.Distance(hit.point, camTrans.position);
+                height = Vector3.Distance(hit.point, camTrans.position) / 3;
+            }
+            else
+            {
+                distance = originalDis;
+                height = originalHeight;
+            }
+        }
+        cameraTransform.position = new Vector3(cameraTransform.position.x, nowHeight, cameraTransform.position.z);
 
         cameraTransform.LookAt(objTargetTransform);
     }

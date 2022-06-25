@@ -6,6 +6,7 @@ public class Words : MonoBehaviour
 {
     float rotateY = 0f;
     public float spd = 100f;
+
     void Update()
     {
         rotateY += Time.deltaTime * spd;
