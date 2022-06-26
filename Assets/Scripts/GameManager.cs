@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : SingleTon_01<GameManager>
 {
@@ -50,6 +51,10 @@ public class GameManager : SingleTon_01<GameManager>
     public bool[] inGameAlphabet = { false, false, false, false, false };
     private int[] randomMoles = { 100, 100, 100, 100, 100 };
 
+    [Header("두더지 찾기 관련")]
+    public Text foundTxt;
+    private int foundedMoles = 0;
+
     void Start()
     {
         store = FindObjectOfType<Store>();
@@ -80,7 +85,7 @@ public class GameManager : SingleTon_01<GameManager>
     public void AddScore(int addScore)
     {
         this.Score += addScore;
-        if(isFeverTime) this.Score += addScore;
+        if (isFeverTime) this.Score += addScore;
         UpdateUI();
     }
     public int GetScore()
@@ -100,6 +105,7 @@ public class GameManager : SingleTon_01<GameManager>
         {
             GameObject summoningMole = Instantiate(enemyMole, enemyHolder);
             summoningMole.transform.position = randomTransformSpawn();
+            summoningMole.GetComponent<Hole>().index = i;
         }
         SummonFever();
     }
@@ -120,17 +126,17 @@ public class GameManager : SingleTon_01<GameManager>
     private void RandomMole()
     {
         int randomMole = Random.Range(0, enemyCount);
-        for(int i = 0; i< randomMoles.Length; i++)
+        for (int i = 0; i < randomMoles.Length; i++)
         {
-            if(randomMole == randomMoles[i])
+            if (randomMole == randomMoles[i])
             {
                 randomMole = Random.Range(0, enemyCount);
                 continue;
             }
         }
-        for(int i = 0; i< randomMoles.Length; i++)
+        for (int i = 0; i < randomMoles.Length; i++)
         {
-            if(randomMoles[i] == 100)
+            if (randomMoles[i] == 100)
             {
                 randomMoles[i] = randomMole;
                 break;
@@ -179,7 +185,7 @@ public class GameManager : SingleTon_01<GameManager>
         }
         else
         {
-            if(GUI.Button(new Rect(250, 10, 200, 200), "스코어 100 추가"))
+            if (GUI.Button(new Rect(250, 10, 200, 200), "스코어 100 추가"))
             {
                 Score += 100;
                 UpdateUI();
@@ -216,7 +222,7 @@ public class GameManager : SingleTon_01<GameManager>
     /// <param name="isMain">메인 씬 ON?</param>
     public void ChangeCam(bool isMain)
     {
-        if(isMain)
+        if (isMain)
         {
             SubCam.enabled = false;
             MainCam.enabled = true;
@@ -235,7 +241,7 @@ public class GameManager : SingleTon_01<GameManager>
     {
         for (int i = 0; i < house.transform.childCount; i++)
         {
-            if(i == currentHouseLvl-1)
+            if (i == currentHouseLvl - 1)
             {
                 house.GetChild(i).gameObject.SetActive(true);
             }
@@ -264,8 +270,8 @@ public class GameManager : SingleTon_01<GameManager>
     {
         fever[index] = true;
         inGameAlphabet[index] = false;
-        feverTxt[index].color = feverColor[index]; 
-        if(fever[0] && fever[1] && fever[2] && fever[3] && fever[4])
+        feverTxt[index].color = feverColor[index];
+        if (fever[0] && fever[1] && fever[2] && fever[3] && fever[4])
         {
             isFeverTime = true;
         }
@@ -276,7 +282,7 @@ public class GameManager : SingleTon_01<GameManager>
     /// </summary>
     public void BlackFeverUI()
     {
-        for(int i = 0; i < feverTxt.Length; i++)
+        for (int i = 0; i < feverTxt.Length; i++)
         {
             feverTxt[i].color = Color.black;
         }
@@ -294,5 +300,30 @@ public class GameManager : SingleTon_01<GameManager>
             randomMoles[i] = 100;
             SetFeverMole(i);
         }
+    }
+
+    /// <summary>
+    /// 처음 잡은 두더지를 위한 함수
+    /// </summary>
+    public void GetFirstOne(int index)
+    {
+        foundedMoles++;
+        if (foundedMoles < enemyCount)
+        {
+            foundTxt.text = "두더지 발견! (" + foundedMoles + "/" + enemyCount + ")";
+        }
+        else
+        {
+            foundTxt.text = "모든 두더지 발견!! (" + foundedMoles + "/" + enemyCount + ")     (+ 1000 Point)";
+            AddScore(1000);
+        }
+        foundTxt.DOFade(1f, 1f);
+        StartCoroutine(fadeAfter());
+    }
+
+    private IEnumerator fadeAfter()
+    {
+        yield return new WaitForSeconds(1f);
+        foundTxt.DOFade(0f, 1f);
     }
 }

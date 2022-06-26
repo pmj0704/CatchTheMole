@@ -430,6 +430,10 @@ public class PlayerCtrl : MonoBehaviour
                 {
                     playerState = PlayerState.Idle;
                 }
+                else if(GameManager.Instance.isUI)
+                {
+                    playerState = PlayerState.Idle;
+                }
                 break;
             case PlayerState.Run:
                 AtkCapsuleCollider.enabled = false;
@@ -442,6 +446,15 @@ public class PlayerCtrl : MonoBehaviour
                 {
                     playerState = PlayerState.Idle;
                 }
+                else if (GameManager.Instance.inHouse)
+                {
+                    playerState = PlayerState.Walk;
+                }
+                else if (GameManager.Instance.isUI)
+                {
+                    playerState = PlayerState.Idle;
+                }
+
                 break;
             case PlayerState.Atk:
                 AtkCapsuleCollider.enabled = true;

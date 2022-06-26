@@ -4,28 +4,46 @@ using UnityEngine;
 
 public class Hole : MonoBehaviour
 {
+    //두더지 소환 시간
     float randomTime;
+    public float minSpawnRate = 2.0f;
+    public float maxSpawnRate = 8.0f;
 
+    //나무 위, 경사면 생성을 방지 하기 위한 왼쪽 오른쪽 레이케스트 시작 점
     public Transform left;
     public Transform right;
 
+    //중력 처리와 생성 버그용 레이 시작점
+    public Transform hitPos;
+
+    //레이용 레이어 마스크
+    public LayerMask layerMask;
+    public LayerMask bottomLayerMask;
+
+    // 두더지 잡으면 나오는 !
     public GameObject ExMark;
 
+    //레이 Hit 위치
     public float HitLeft;
     public float HitRight;
     public float HitBottom;
 
-    public float minSpawnRate = 2.0f;
-    public float maxSpawnRate = 8.0f;
-
-    public Transform hitPos;
-
+    //피버 두더지일 때 가지고 있는 알파벳
     public int alphabet = 100;
 
-    public LayerMask layerMask;
-    public LayerMask bottomLayerMask;
-
+    //알파벳을 가지고 있는 두더지 인지
     private bool hasAlphabet = false;
+
+    //처음 잡은 두더지인지
+    private bool firstTime = true;
+
+    //처음 잡은 두더지에 나오는 이펙트
+    public GameObject firstEffect;
+
+    public Renderer HoleRenderer = null;
+    public Material afterMet;
+
+    public int index = 100;
 
     private void Start()
     {
@@ -111,7 +129,7 @@ public class Hole : MonoBehaviour
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, bottomLayerMask))
                     {
                         HitBottom = hit.point.y;
-                        if ((HitLeft - HitBottom) > 4 || (HitRight - HitBottom) > 4)
+                        if ((HitLeft - HitBottom) > 2f || (HitRight - HitBottom) > 2f)
                         {
                             Respawn();
                         }
@@ -146,8 +164,13 @@ public class Hole : MonoBehaviour
     /// <summary>
     /// 피버 타임을 위한 함수
     /// </summary>
-    public void Fever()
+    public void Dead()
     {
+        if(firstTime)
+        {
+            StartCoroutine(firstOneEvent());
+            firstTime = false;
+        }
         if (hasAlphabet)
         {
             GameManager.Instance.CheckFever(alphabet);
@@ -156,13 +179,19 @@ public class Hole : MonoBehaviour
         }
     }
 
+    IEnumerator firstOneEvent()
+    {
+        yield return new WaitForSeconds(1f);
+        firstEffect.SetActive(false);
+        HoleRenderer.material = afterMet;
+        GameManager.Instance.GetFirstOne(index);
+    }
 
     /// <summary>
     /// 피버 글자를 지정해주는 함수
     /// </summary>
     public void SetFeverAlphabet()
     {
-        Debug.Log(GameManager.Instance.inGameAlphabet.Length);
         for (int i = 0; i < GameManager.Instance.inGameAlphabet.Length; i++)
         {
             if (!GameManager.Instance.inGameAlphabet[i])
