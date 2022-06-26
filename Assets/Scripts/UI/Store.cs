@@ -61,20 +61,23 @@ public class Store : MonoBehaviour
         {
             if(GameManager.Instance.GetScore() < housePrice[houseTryingToBuy])
             {
+                buyTxt.transform.parent.parent.gameObject.SetActive(true);
                 buyTxt.text = "점수가 부족합니다.";
             }
             else
             {
+                buyTxt.transform.parent.parent.gameObject.SetActive(true);
                 buyTxt.text = "구매";
                 CanBuy = true;
             }
         }
         else if((GameManager.Instance.currentHouseLvl) > (houseTryingToBuy))
         {
-            buyTxt.text = "업그레이드 완료.";
+            buyTxt.transform.parent.parent.gameObject.SetActive(false);
         }
         else
         {
+            buyTxt.transform.parent.parent.gameObject.SetActive(true);
             buyTxt.text = "집 업그레이드가 더 필요합니다.";
         }
     }
