@@ -45,8 +45,10 @@ public class GameManager : SingleTon_01<GameManager>
     [Header("피버 관련")]
     public Text[] feverTxt;
     public Color[] feverColor;
-    bool[] fever = { false, false, false, false, false };
+    public bool[] fever = { false, false, false, false, false };
     public bool isFeverTime = false;
+    public bool[] inGameAlphabet = { false, false, false, false, false };
+    private int[] randomMoles = { 100, 100, 100, 100, 100 };
 
     void Start()
     {
@@ -98,10 +100,40 @@ public class GameManager : SingleTon_01<GameManager>
         {
             GameObject summoningMole = Instantiate(enemyMole, enemyHolder);
             summoningMole.transform.position = randomTransformSpawn();
-            if(i < 5)
+        }
+        SummonFever();
+    }
+
+    /// <summary>
+    /// 피버 두더지를 지정해주는 함수
+    /// </summary>
+    private void SetFeverMole(int i)
+    {
+        RandomMole();
+        enemyHolder.GetChild(randomMoles[i]).GetComponent<Hole>().SetFeverAlphabet();
+    }
+
+    /// <summary>
+    /// 랜덤 두더지를 지정해주는 함수
+    /// </summary>
+    /// <returns></returns>
+    private void RandomMole()
+    {
+        int randomMole = Random.Range(0, enemyCount);
+        for(int i = 0; i< randomMoles.Length; i++)
+        {
+            if(randomMole == randomMoles[i])
             {
-                summoningMole.GetComponent<Hole>().isFever = true;
-                summoningMole.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(true);
+                randomMole = Random.Range(0, enemyCount);
+                continue;
+            }
+        }
+        for(int i = 0; i< randomMoles.Length; i++)
+        {
+            if(randomMoles[i] == 100)
+            {
+                randomMoles[i] = randomMole;
+                break;
             }
         }
     }
@@ -231,6 +263,7 @@ public class GameManager : SingleTon_01<GameManager>
     public void CheckFever(int index)
     {
         fever[index] = true;
+        inGameAlphabet[index] = false;
         feverTxt[index].color = feverColor[index]; 
         if(fever[0] && fever[1] && fever[2] && fever[3] && fever[4])
         {
@@ -246,6 +279,20 @@ public class GameManager : SingleTon_01<GameManager>
         for(int i = 0; i < feverTxt.Length; i++)
         {
             feverTxt[i].color = Color.black;
+        }
+    }
+
+    /// <summary>
+    /// 피버 글자 재생성 함수
+    /// </summary>
+    public void SummonFever()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            fever[i] = false;
+            inGameAlphabet[i] = false;
+            randomMoles[i] = 100;
+            SetFeverMole(i);
         }
     }
 }

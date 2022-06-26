@@ -507,5 +507,6 @@ public class PlayerCtrl : MonoBehaviour
 
         GameManager.Instance.BlackFeverUI();
         trail.SetActive(false);
+        GameManager.Instance.SummonFever();
     }
 }

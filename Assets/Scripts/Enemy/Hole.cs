@@ -18,8 +18,6 @@ public class Hole : MonoBehaviour
     public float minSpawnRate = 2.0f;
     public float maxSpawnRate = 8.0f;
 
-    public bool isFever = false;
-
     public Transform hitPos;
 
     public int alphabet = 100;
@@ -27,6 +25,7 @@ public class Hole : MonoBehaviour
     public LayerMask layerMask;
     public LayerMask bottomLayerMask;
 
+    private bool hasAlphabet = false;
 
     private void Start()
     {
@@ -38,6 +37,7 @@ public class Hole : MonoBehaviour
     /// </summary>
     public void SummonEnemy()
     {
+        hasAlphabet = false;
         StartCoroutine(RandomTimeSpawn());
     }
 
@@ -134,25 +134,6 @@ public class Hole : MonoBehaviour
         WhenSpawn();
     }
 
-    /// <summary>
-    /// 피버 타임을 위한 함수
-    /// </summary>
-    public void Fever()
-    {
-        if(isFever)
-        {
-            //어느 알파벳인지 지정해주는 함수
-            for(int i = 0; i < 5; i++)
-            {
-                if (transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject.activeInHierarchy)
-                {
-                    alphabet = i;
-                }
-            }
-            GameManager.Instance.CheckFever(alphabet);
-        }
-    }
-
     public void OnCollisionEnter(Collision collision)
     {
         //서로 겹치지 않기 위한 함수
@@ -161,4 +142,38 @@ public class Hole : MonoBehaviour
             Respawn();
         }
     }
+
+    /// <summary>
+    /// 피버 타임을 위한 함수
+    /// </summary>
+    public void Fever()
+    {
+        if (hasAlphabet)
+        {
+            GameManager.Instance.CheckFever(alphabet);
+            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(alphabet).gameObject.SetActive(false);
+
+        }
+    }
+
+
+    /// <summary>
+    /// 피버 글자를 지정해주는 함수
+    /// </summary>
+    public void SetFeverAlphabet()
+    {
+        Debug.Log(GameManager.Instance.inGameAlphabet.Length);
+        for (int i = 0; i < GameManager.Instance.inGameAlphabet.Length; i++)
+        {
+            if (!GameManager.Instance.inGameAlphabet[i])
+            {
+                alphabet = i;
+                hasAlphabet = true;
+                GameManager.Instance.inGameAlphabet[i] = true;
+                transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(true);
+                break;
+            }
+        }
+    }
+
 }
