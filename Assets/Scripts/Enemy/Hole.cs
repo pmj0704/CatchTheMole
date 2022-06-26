@@ -111,7 +111,7 @@ public class Hole : MonoBehaviour
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, bottomLayerMask))
                     {
                         HitBottom = hit.point.y;
-                        if ((HitLeft - HitBottom) > 4)
+                        if ((HitLeft - HitBottom) > 4 || (HitRight - HitBottom) > 4)
                         {
                             Respawn();
                         }
