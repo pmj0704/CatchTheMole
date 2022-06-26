@@ -11,7 +11,7 @@ public class InHouse : MonoBehaviour
         {
             Vector3 newPos = new Vector3(0, 1, 0);
             camView.localPosition = newPos;
-            Camera.main.GetComponent<CameraCtrl>().inHouse = true;
+            GameManager.Instance.inHouse = true;
             Camera.main.GetComponent<CameraCtrl>().distance = 1.5f;
             Camera.main.GetComponent<CameraCtrl>().height = 0.5f;
         }
@@ -23,7 +23,7 @@ public class InHouse : MonoBehaviour
         {
             Vector3 newPos = new Vector3(0, 2, 0);
             camView.localPosition = newPos;
-            Camera.main.GetComponent<CameraCtrl>().inHouse = false;
+            GameManager.Instance.inHouse = false;
         }
     }
 }

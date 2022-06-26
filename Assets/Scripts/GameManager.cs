@@ -34,6 +34,7 @@ public class GameManager : SingleTon_01<GameManager>
     public Text ScorePriceTxt;
     public Transform house;
     public GameObject houseUI;
+    public bool inHouse;
     public GameObject mainUI;
     public bool enterStore = false;
     private Store store = null;
@@ -139,7 +140,6 @@ public class GameManager : SingleTon_01<GameManager>
             GUI.Label(new Rect(250, 10, 100, 20), "필드에 활성화 된 두더지 수: " + FindObjectsOfType<EnemyMove>().Length, labelStyle);
             GUI.Label(new Rect(250, 40, 100, 20), "가장 가까운 두더지와 거리: " + nearest, labelStyle);
             GUI.Label(new Rect(250, 80, 100, 20), "가장 가까운 두더지 좌표: " + nearestVec, labelStyle);
-            if (GUI.Button(new Rect(250, 120, 200, 40), "피버 타임"))
             if (GUI.Button(new Rect(250, 120, 200, 40), "피버 타임"))
             {
                 isFeverTime = true;

@@ -92,7 +92,7 @@ public class CameraCtrl : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(camTrans.position, transform.position);
 
-        if (!inHouse)
+        if (!GameManager.Instance.inHouse)
         {
             if (Physics.Raycast(ray, out hit, originalDis, layerMask))
             {

@@ -240,7 +240,7 @@ public class PlayerCtrl : MonoBehaviour
     void InputAttackCtrl()
     {
         //마우스 클릭 하였는가?
-        if (Input.GetMouseButtonDown(0) == true)
+        if (Input.GetMouseButtonDown(0) == true && !GameManager.Instance.inHouse)
         {
             //플레이어 공격 상태
             if (playerState != PlayerState.Atk)
@@ -304,38 +304,10 @@ public class PlayerCtrl : MonoBehaviour
     /// </summary>
     public void OnPlayerAttackFinshed()
     {
-        //만약에 flagNextAttack이 true면 
-        if (flagNextAttack == true)
-        {
-            //flag 초기화
-            flagNextAttack = false;
-
-            //현재 공격 애니메이션 상태에 따른 다음 애니메이션 상태값을 넣기
-            switch (playerAttackState)
-            {
-                case PlayerAttackState.atkStep_1:
-                    playerAttackState = PlayerAttackState.atkStep_2;
-                    break;
-                case PlayerAttackState.atkStep_2:
-                    playerAttackState = PlayerAttackState.atkStep_3;
-                    break;
-                case PlayerAttackState.atkStep_3:
-                    playerAttackState = PlayerAttackState.atkStep_4;
-                    break;
-                case PlayerAttackState.atkStep_4:
-                    playerAttackState = PlayerAttackState.atkStep_1;
-                    break;
-                default:
-                    break;
-            }
-        }
-        else
-        {
             stopPlayer = false;
             playerState = PlayerState.Idle;
 
             playerAttackState = PlayerAttackState.atkStep_1;
-        }
     }
 
     /// <summary>
