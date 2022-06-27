@@ -68,9 +68,6 @@ public class PlayerCtrl : MonoBehaviour
     //무기에 있는 콜라이더 캐싱
     public CapsuleCollider AtkCapsuleCollider = null;
 
-    [Header("스킬 관련")]
-    public GameObject skillEffect = null;
-
     [Header("애니메이션 클립")]
     public AnimationClip IdleClip = null;
     public AnimationClip WalkClip = null;
@@ -83,6 +80,7 @@ public class PlayerCtrl : MonoBehaviour
     [Header("Ray")]
     public Transform rayStart;
     public int rayDis = 5;
+    public GameObject FText;
 
     [Header("문 상호 작용")]
     public GameObject[] doorTxt;
@@ -364,8 +362,9 @@ public class PlayerCtrl : MonoBehaviour
             }
             else
             {
-                if(hit.collider.gameObject.GetComponent<Jack>() != null)
+                if (hit.collider.gameObject.GetComponent<Jack>() != null)
                 hit.collider.gameObject.GetComponent<Jack>().Interact(false);
+                FText.SetActive(false);
             }
         }
     }
@@ -491,12 +490,19 @@ public class PlayerCtrl : MonoBehaviour
     //    }
     //}
 
+    /// <summary>
+    /// 공격 시 망치 콜라이더
+    /// </summary>
+    /// <param name="stopPlayer"></param>
     public void HammerCol(bool stopPlayer)
     {
         this.stopPlayer = stopPlayer;
         characterCtrl.Move(-transform.forward * 0.05f);
     }
 
+    /// <summary>
+    /// 피버 시간이면 시작
+    /// </summary>
     void Fever()
     {
         if(GameManager.Instance.isFeverTime)
@@ -505,6 +511,10 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 피버 시간 코루틴
+    /// </summary>
+    /// <returns></returns>
     IEnumerator FeverTime()
     {
         GameManager.Instance.isFeverTime = false;

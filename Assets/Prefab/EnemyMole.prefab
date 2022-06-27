@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpawnRate: 2
-  maxSpawnRate: 8
+  maxSpawnRate: 60
   left: {fileID: 4362383203041200309}
   right: {fileID: 8301009720746004975}
   hitPos: {fileID: 0}
@@ -119,6 +119,7 @@ MonoBehaviour:
   firstEffect: {fileID: 3124746986820150147}
   HoleRenderer: {fileID: 8219475060150195880}
   afterMet: {fileID: 2100000, guid: 9e3b4f7b351acf646961a1784cccaed9, type: 2}
+  index: 100
 --- !u!1 &2619470078581352411
 GameObject:
   m_ObjectHideFlags: 0
