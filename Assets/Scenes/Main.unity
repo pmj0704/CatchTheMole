@@ -10029,7 +10029,7 @@ MonoBehaviour:
   doorTxt:
   - {fileID: 1416167014}
   - {fileID: 761787536}
-  FeverLength: 10
+  FeverLength: 20
   trail: {fileID: 1797201587}
 --- !u!143 &1275498810
 CharacterController:
@@ -56118,7 +56118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &2939397376264977695
 MeshFilter:
   m_ObjectHideFlags: 0
