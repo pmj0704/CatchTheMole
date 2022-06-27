@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1097e4f52254e5147b10a7b681e12952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnRate: 2
-  maxSpawnRate: 60
+  minSpawnRate: 30
+  maxSpawnRate: 80
   left: {fileID: 4362383203041200309}
   right: {fileID: 8301009720746004975}
   hitPos: {fileID: 0}
