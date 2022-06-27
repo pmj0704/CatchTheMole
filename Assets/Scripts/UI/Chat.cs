@@ -19,6 +19,10 @@ public class Chat : MonoBehaviour
     public Color Shadowed;
     public Animator iconAniamtion;
 
+    [Header("튜토리얼 관련")]
+    public Image tutoImg;
+    public Sprite[] tutoSprites;
+
     private void OnEnable()
     {
         GameManager.Instance.isUI = true;
@@ -59,6 +63,19 @@ public class Chat : MonoBehaviour
                 break;
             case 2:
                 nextEnable = false;
+                break;
+            case 3:
+                tutoImg.sprite = tutoSprites[0];
+                break;
+            case 4:
+                tutoImg.sprite = tutoSprites[1];
+                break;
+            case 5:
+                tutoImg.sprite = tutoSprites[2];
+                break;
+            case 6:
+                tutoImg.gameObject.SetActive(false);
+                EndTutoScene();
                 break;
             case 8:
                 Exit();
@@ -105,11 +122,28 @@ public class Chat : MonoBehaviour
     }
 
     /// <summary>
+    /// 튜토리얼 끝 씬
+    /// </summary>
+    void EndTutoScene()
+    {
+        talkerTxt.text = "잭";
+        chatTxt.text = "이제 됐어?";
+        chatTxt.gameObject.SetActive(true);
+        playerImg.color = Shadowed;
+        jackImg.color = Color.white;
+        selection.SetActive(false);
+        indexer = 7;
+        nextEnable = true;
+    }
+
+    /// <summary>
     /// 버튼 클릭 시 튜토리얼 씬
     /// </summary>
     public void Tuto()
     {
-
+        tutoImg.gameObject.SetActive(true);
+        nextEnable = true;
+        indexer = 3;
     }
 
     /// <summary>
@@ -120,6 +154,10 @@ public class Chat : MonoBehaviour
         if(GameManager.Instance.currentHouseLvl == 0)
         {
             Fail();
+        }
+        else
+        {
+            Patch();
         }
     }
 
@@ -166,6 +204,21 @@ public class Chat : MonoBehaviour
     {
         talkerTxt.text = "잭";
         chatTxt.text = "집을 구매 해야 인테리어를 할 수 있어.";
+        chatTxt.gameObject.SetActive(true);
+        playerImg.color = Shadowed;
+        jackImg.color = Color.white;
+        selection.SetActive(false);
+        indexer = 7;
+        nextEnable = true;
+    }
+
+    /// <summary>
+    /// 패치 중 입니다..
+    /// </summary>
+    public void Patch()
+    {
+        talkerTxt.text = "잭";
+        chatTxt.text = "가구 배송 중이야 다음 패치까지 기다려줘.";
         chatTxt.gameObject.SetActive(true);
         playerImg.color = Shadowed;
         jackImg.color = Color.white;
