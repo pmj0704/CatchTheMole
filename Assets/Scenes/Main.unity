@@ -10010,8 +10010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c8c3372f3c82e4bb59ccd7e60bf71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movedSpd: 2
-  runMoveSpd: 3.5
+  movedSpd: 2.5
+  runMoveSpd: 4.5
   DirectionRotateSpd: 100
   BodyRotateSpd: 2
   VelocityChangeSpd: 0.1
