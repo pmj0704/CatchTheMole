@@ -59,13 +59,13 @@ public class GameManager : SingleTon_01<GameManager>
     [Header("설정 관련")]
     public GameObject Title;
     public bool isEsc = true;
-    public AudioClip[] audioClips;
     private AudioSource[] audioSources = null;
     public AudioListener audioListener = null;
     private float currentAudioLength1 = 0f;
     private float currentAudioLength2 = 0f;
     private float currentAudioLength3 = 0f;
     private bool isMute = false;
+    public Sprite[] muteSprites;
 
     void Start()
     {
@@ -363,17 +363,27 @@ public class GameManager : SingleTon_01<GameManager>
         StartCoroutine(fadeAfter());
     }
 
+    /// <summary>
+    /// 텍스트가 몇초 뒤에 페이드 되기 위한 코루틴
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator fadeAfter()
     {
         yield return new WaitForSeconds(1f);
         foundTxt.DOFade(0f, 1f);
     }
 
+    /// <summary>
+    /// 게임 종료
+    /// </summary>
     public void Quit()
     {
         Application.Quit();    
     }
 
+    /// <summary>
+    /// 게임 시작을 담당하는 함수
+    /// </summary>
     public void gameStart()
     {
         
@@ -396,6 +406,9 @@ public class GameManager : SingleTon_01<GameManager>
         }
     }
 
+    /// <summary>
+    /// 피버가 시작 할때 노래가 중지/재생 되도록하는 함수
+    /// </summary>
     public void atFever()
     {
         currentAudioLength2 = audioSources[1].time;
@@ -403,6 +416,9 @@ public class GameManager : SingleTon_01<GameManager>
         audioSources[2].Play();
     }
 
+    /// <summary>
+    /// 피터가 끝나고 노래가 중지/재생 되도록하는 함수
+    /// </summary>
     public void FeverEnd()
     {
         audioSources[2].Stop();
@@ -411,15 +427,19 @@ public class GameManager : SingleTon_01<GameManager>
 
     }
 
-    public void Mute()
+    /// <summary>
+    /// 음소거 버튼
+    /// </summary>
+    /// <param name="img"></param>
+    public void Mute(Image img)
     {
         if(isMute)
         {
-
             audioSources[0].mute = false;
             audioSources[1].mute = false;
             audioSources[2].mute = false;
             isMute = false;
+            img.sprite = muteSprites[0];
         }
         else
         {
@@ -427,8 +447,20 @@ public class GameManager : SingleTon_01<GameManager>
             audioSources[1].mute = true;
             audioSources[2].mute = true;
             isMute = true;
-
+            img.sprite = muteSprites[1];
         }
+    }
 
+    public void PlayerAtk()
+    {
+        audioSources[3].Play();
+    }
+
+    public void changeSound(Slider slider)
+    {
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            audioSources[i].volume = slider.value;
+        }
     }
 }
