@@ -435,27 +435,42 @@ public class GameManager : SingleTon_01<GameManager>
     {
         if(isMute)
         {
-            audioSources[0].mute = false;
-            audioSources[1].mute = false;
-            audioSources[2].mute = false;
-            isMute = false;
+            for (int i = 0; i < audioSources.Length; i++) audioSources[i].mute = false;
+
+                isMute = false;
             img.sprite = muteSprites[0];
         }
         else
         {
-            audioSources[0].mute = true;
-            audioSources[1].mute = true;
-            audioSources[2].mute = true;
+            for (int i = 0; i < audioSources.Length; i++) audioSources[i].mute = true;
+
             isMute = true;
             img.sprite = muteSprites[1];
         }
     }
 
+    /// <summary>
+    /// 플레이어가 공격 할 때 나는 효과음
+    /// </summary>
     public void PlayerAtk()
     {
+        StartCoroutine(PlayerAtkCor());
+    }
+
+    /// <summary>
+    /// 시간 간격을 줘서 재생
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator PlayerAtkCor()
+    {
+        yield return new WaitForSeconds(0.4f);
         audioSources[3].Play();
     }
 
+    /// <summary>
+    /// 슬라이더로 소리 바꾸는 함수
+    /// </summary>
+    /// <param name="slider"></param>
     public void changeSound(Slider slider)
     {
         for (int i = 0; i < audioSources.Length; i++)

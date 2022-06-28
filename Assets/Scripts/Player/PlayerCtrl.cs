@@ -243,6 +243,8 @@ public class PlayerCtrl : MonoBehaviour
             //플레이어 공격 상태
             if (playerState != PlayerState.Atk)
             {
+                GameManager.Instance.PlayerAtk();
+
                 //플레이어가 공격 상태가 아니면 공격 상태로 변경
                 playerState = PlayerState.Atk;
 
