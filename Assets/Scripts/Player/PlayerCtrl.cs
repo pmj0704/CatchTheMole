@@ -107,7 +107,7 @@ public class PlayerCtrl : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.isUI == false)
+        if (GameManager.Instance.isUI == false && GameManager.Instance.isEsc == false)
         {
             //캐릭터 이동
             Move();
@@ -518,7 +518,7 @@ public class PlayerCtrl : MonoBehaviour
     IEnumerator FeverTime()
     {
         GameManager.Instance.isFeverTime = false;
-
+        GameManager.Instance.atFever();
         movedSpd *= 3;
         runMoveSpd *=  3;
 
@@ -531,5 +531,7 @@ public class PlayerCtrl : MonoBehaviour
         GameManager.Instance.BlackFeverUI();
         trail.SetActive(false);
         GameManager.Instance.SummonFever();
+        GameManager.Instance.FeverEnd();
+        GameManager.Instance.isFever = false;
     }
 }

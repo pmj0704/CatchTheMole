@@ -48,6 +48,7 @@ public class GameManager : SingleTon_01<GameManager>
     public Color[] feverColor;
     public bool[] fever = { false, false, false, false, false };
     public bool isFeverTime = false;
+    public bool isFever = false;
     public bool[] inGameAlphabet = { false, false, false, false, false };
     private int[] randomMoles = { 100, 100, 100, 100, 100 };
 
@@ -55,8 +56,20 @@ public class GameManager : SingleTon_01<GameManager>
     public Text foundTxt;
     private int foundedMoles = 0;
 
+    [Header("설정 관련")]
+    public GameObject Title;
+    public bool isEsc = true;
+    public AudioClip[] audioClips;
+    private AudioSource[] audioSources = null;
+    public AudioListener audioListener = null;
+    private float currentAudioLength1 = 0f;
+    private float currentAudioLength2 = 0f;
+    private float currentAudioLength3 = 0f;
+    private bool isMute = false;
+
     void Start()
     {
+        audioSources = GetComponents<AudioSource>();
         store = FindObjectOfType<Store>();
         UpdateUI();
         SummonMoles();
@@ -65,6 +78,33 @@ public class GameManager : SingleTon_01<GameManager>
     void Update()
     {
         FindNearMole();
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(isEsc)
+            {
+                gameStart();
+            }
+            else
+            {
+                Title.SetActive(true);
+                Time.timeScale = 0;
+                isEsc = true;
+                if(isFever)
+                {
+                    currentAudioLength3 = audioSources[2].time;
+                    audioSources[2].Stop();
+                    audioSources[0].Play();
+                    audioSources[0].time = currentAudioLength1;
+                }
+                else
+                {
+                    currentAudioLength2 = audioSources[1].time;
+                    audioSources[1].Stop();
+                    audioSources[0].Play();
+                    audioSources[0].time = currentAudioLength1;
+                }
+            }
+        }
     }
 
 
@@ -85,7 +125,7 @@ public class GameManager : SingleTon_01<GameManager>
     public void AddScore(int addScore)
     {
         this.Score += addScore;
-        if (isFeverTime) this.Score += addScore;
+        if (isFever) this.Score += addScore;
         UpdateUI();
     }
     public int GetScore()
@@ -181,6 +221,7 @@ public class GameManager : SingleTon_01<GameManager>
             if (GUI.Button(new Rect(250, 120, 200, 40), "피버 타임"))
             {
                 isFeverTime = true;
+                isFever = true;
             }
         }
         else
@@ -274,6 +315,7 @@ public class GameManager : SingleTon_01<GameManager>
         if (fever[0] && fever[1] && fever[2] && fever[3] && fever[4])
         {
             isFeverTime = true;
+                isFever = true;
         }
     }
 
@@ -325,5 +367,68 @@ public class GameManager : SingleTon_01<GameManager>
     {
         yield return new WaitForSeconds(1f);
         foundTxt.DOFade(0f, 1f);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();    
+    }
+
+    public void gameStart()
+    {
+        
+        Title.SetActive(false);
+        Time.timeScale = 1;
+        isEsc = false;
+        if (!isFever)
+        {
+            currentAudioLength1 = audioSources[0].time;
+            audioSources[0].Stop();
+            audioSources[1].Play();
+            audioSources[1].time = currentAudioLength2;
+        }
+        else
+        {
+            currentAudioLength1 = audioSources[0].time;
+            audioSources[0].Stop();
+            audioSources[2].Play();
+            audioSources[2].time = currentAudioLength3;
+        }
+    }
+
+    public void atFever()
+    {
+        currentAudioLength2 = audioSources[1].time;
+        audioSources[1].Stop();
+        audioSources[2].Play();
+    }
+
+    public void FeverEnd()
+    {
+        audioSources[2].Stop();
+        audioSources[1].Play();
+        audioSources[1].time = currentAudioLength2;
+
+    }
+
+    public void Mute()
+    {
+        if(isMute)
+        {
+
+            audioSources[0].mute = false;
+            audioSources[1].mute = false;
+            audioSources[2].mute = false;
+            isMute = false;
+        }
+        else
+        {
+            audioSources[0].mute = true;
+            audioSources[1].mute = true;
+            audioSources[2].mute = true;
+            isMute = true;
+
+        }
+
     }
 }
